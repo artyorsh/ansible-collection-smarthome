@@ -1,0 +1,11 @@
+homeassistant: true
+frontend: true
+
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://{{ zigbee2mqtt_broker_address }}
+  user: {{ zigbee2mqtt_broker_user }}
+  password: {{ zigbee2mqtt_broker_password }}
+
+serial:
+  port: /dev/ttyACM0

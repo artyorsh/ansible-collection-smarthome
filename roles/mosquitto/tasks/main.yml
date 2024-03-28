@@ -1,0 +1,57 @@
+---
+- name: "Prepare task variables"
+  ansible.builtin.set_fact:
+    mosquitto_service_id: "mosquitto"
+    mosquitto_passwd_local_file: "/mosquitto/config/passwd"
+
+- name: "Create service directories"
+  ansible.builtin.file:
+    path: "{{ mosquitto_install_dir }}"
+    state: "directory"
+    # owner: "{{ system_user_name }}"
+    # group: "{{ system_user_group }}"
+    mode: "0770"
+
+- name: "Template mosquitto.conf"
+  ansible.builtin.template:
+    src: "mosquitto.conf.j2"
+    dest: "{{ mosquitto_install_dir }}/mosquitto.conf"
+    # owner: "{{ system_user_name }}"
+    # group: "{{ system_user_group }}"
+    mode: "0644"
+
+- name: "Create encrypted passwd volume"
+  block:
+    - name: "Template passwd"
+      ansible.builtin.template:
+        src: "mosquitto-passwd.txt.j2"
+        dest: "{{ mosquitto_install_dir }}/mosquitto-passwd.txt"
+        # owner: "{{ system_user_name }}"
+        # group: "{{ system_user_group }}"
+        mode: "0700"
+
+    - name: "Encrypt passwd"
+      ansible.builtin.command: >
+        docker run --rm -v {{ mosquitto_install_dir }}/mosquitto-passwd.txt:{{ mosquitto_passwd_local_file }} \
+        eclipse-mosquitto:{{ mosquitto_version }} \
+        mosquitto_passwd -U {{ mosquitto_passwd_local_file }}
+      changed_when: false
+
+- name: "Run mosquitto container"
+  community.general.docker_container:
+    name: "{{ mosquitto_service_id }}"
+    image: "eclipse-mosquitto:{{ mosquitto_version }}"
+    networks:
+      - name: "{{ mosquitto_docker_settings.network }}"
+    state: "started"
+    env:
+      TZ: "{{ mosquitto_docker_settings.tz }}"
+      PUID: "{{ mosquitto_docker_settings.puid }}"
+      PGID: "{{ mosquitto_docker_settings.pgid }}"
+    volumes:
+      - "{{ mosquitto_install_dir }}/mosquitto.conf:/mosquitto/config/mosquitto.conf"
+      - "{{ mosquitto_install_dir }}/mosquitto-passwd.txt:{{ mosquitto_passwd_local_file }}"
+    ports:
+      - "{{ mosquitto_port }}:1883"
+      - "{{ mosquitto_websocket_port }}:9001"
+    restart_policy: "unless-stopped"

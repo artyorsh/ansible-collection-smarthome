@@ -1,0 +1,18 @@
+# https://www.home-assistant.io/docs/configuration/
+# https://www.home-assistant.io/integrations/default_config/
+# https://github.com/arsaboo/homeassistant-config/blob/master/configuration.yaml
+
+homeassistant:
+  time_zone: {{ system_timezone }}
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+{% for proxy in home_homeassistant_trusted_proxies %}
+    # {{ proxy.desc }}
+    - "{{ proxy.address }}" 
+{% endfor %}
+
+mobile_app:
+
+automation: !include automations.yaml

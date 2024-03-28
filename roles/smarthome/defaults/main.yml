@@ -1,0 +1,12 @@
+---
+smarthome_user:
+  name: "smarthome"
+  password: "smarthome"
+
+smarthome_zigbee_coordinator: "/dev/ttyUSB0"
+
+smarthome_docker_settings:
+  network: "host"
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"
