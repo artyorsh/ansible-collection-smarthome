@@ -1,0 +1,39 @@
+---
+# https://github.com/linuxserver/docker-homeassistant#parameters
+
+- name: "Prepare task variables"
+  ansible.builtin.set_fact:
+    homeassistant_service_id: "homeassistant"
+
+- name: "Create service directories"
+  ansible.builtin.file:
+    path: "{{ homeassistant_install_dir }}"
+    state: "directory"
+    # owner: "{{ system_user_name }}"
+    # group: "{{ system_user_group }}"
+    mode: "0770"
+
+- name: "Template configuration.yml"
+  ansible.builtin.template:
+    src: "ha-configuration.yaml.j2"
+    dest: "{{ homeassistant_install_dir }}/configuration.yaml"
+    # owner: "{{ system_user_name }}"
+    # group: "{{ system_user_group }}"
+    mode: "0644"
+
+- name: "Run homeassistant container"
+  community.general.docker_container:
+    name: "{{ homeassistant_service_id }}"
+    image: "lscr.io/linuxserver/homeassistant:{{ home_homeassistant_version }}"
+    networks:
+      - name: "{{ homeassistant_docker_settings.network }}"
+    state: "started"
+    env:
+      TZ: "{{ homeassistant_docker_settings.tz }}"
+      PUID: "{{ homeassistant_docker_settings.puid }}"
+      PGID: "{{ homeassistant_docker_settings.pgid }}"
+    ports:
+      - "{{ home_homeassistant_port }}:8123"
+    volumes:
+      - "{{ homeassistant_install_dir }}:/config"
+    restart_policy: "unless-stopped"

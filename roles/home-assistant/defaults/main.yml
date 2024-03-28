@@ -1,0 +1,13 @@
+---
+homeassistant_version: "latest"
+homeassistant_port: 8123
+homeassistant_install_dir: "/opt/docker/homeassistant"
+
+homeassistant_trusted_proxies: []
+# - { desc: "cloudflare", address: "172.19.0.4" }
+
+homeassistant_docker_settings:
+  network: "host"
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"

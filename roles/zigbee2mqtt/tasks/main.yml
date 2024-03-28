@@ -1,0 +1,43 @@
+# https://www.zigbee2mqtt.io/guide/installation/02_docker.html
+# https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html#parameter-devices
+---
+- name: "Prepare task variables"
+  ansible.builtin.set_fact:
+    zigbee2mqtt_service_id: "zigbee2mqtt"
+
+- name: "Create service directories"
+  ansible.builtin.file:
+    path: "{{ zigbee2mqtt_install_dir }}"
+    state: "directory"
+    # owner: "{{ system_user_name }}"
+    # group: "{{ system_user_group }}"
+    mode: "0770"
+
+- name: "Template configuration.yml"
+  ansible.builtin.template:
+    src: "zigbee2mqtt-configuration.yaml.j2"
+    dest: "{{ zigbee2mqtt_install_dir }}/configuration.yaml"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_group }}"
+    mode: "0700"
+
+- name: "Run zigbee2mqtt container"
+  community.general.docker_container:
+    name: "{{ zigbee2mqtt_service_id }}"
+    image: "koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
+    networks:
+      - name: "{{ zigbee2mqtt_docker_settings.network }}"
+    state: "started"
+    env:
+      TZ: "{{ zigbee2mqtt_docker_settings.tz }}"
+      PUID: "{{ zigbee2mqtt_docker_settings.puid }}"
+      PGID: "{{ zigbee2mqtt_docker_settings.pgid }}"
+    groups:
+      - "dialout"
+    devices:
+      - "{{ zigbee2mqtt_device }}:/dev/ttyACM0"
+    ports:
+      - "{{ zigbee2mqtt_port }}:8080"
+    volumes:
+      - "{{ zigbee2mqtt_install_dir }}:/app/data"
+    restart_policy: "unless-stopped"
