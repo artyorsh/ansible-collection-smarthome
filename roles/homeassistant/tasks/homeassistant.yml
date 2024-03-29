@@ -15,7 +15,7 @@
 
 - name: "Template configuration.yml"
   ansible.builtin.template:
-    src: "ha-configuration.yaml.j2"
+    src: "configuration.yaml.j2"
     dest: "{{ homeassistant_install_dir }}/configuration.yaml"
     # owner: "{{ system_user_name }}"
     # group: "{{ system_user_group }}"
@@ -24,7 +24,7 @@
 - name: "Run homeassistant container"
   community.general.docker_container:
     name: "{{ homeassistant_service_id }}"
-    image: "lscr.io/linuxserver/homeassistant:{{ home_homeassistant_version }}"
+    image: "homeassistant-avahi:v1"
     networks:
       - name: "{{ homeassistant_docker_settings.network }}"
     state: "started"
@@ -33,7 +33,8 @@
       PUID: "{{ homeassistant_docker_settings.puid }}"
       PGID: "{{ homeassistant_docker_settings.pgid }}"
     ports:
-      - "{{ home_homeassistant_port }}:8123"
+      - "{{ homeassistant_port }}:8123"
+      - "{{ homeassistant_homekit_port }}:{{ homeassistant_homekit_port }}"
     volumes:
       - "{{ homeassistant_install_dir }}:/config"
     restart_policy: "unless-stopped"

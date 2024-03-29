@@ -1,0 +1,6 @@
+---
+- name: "Install and configure HomeAssistant"
+  ansible.builtin.include_tasks: "homeassistant.yml"
+
+- name: "Install and configure mDNS repeater"
+  ansible.builtin.include_tasks: "mdns.yml"
