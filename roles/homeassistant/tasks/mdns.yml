@@ -1,0 +1,27 @@
+---
+- name: "Prepare task variables"
+  ansible.builtin.set_fact:
+    homeassistant_mdns_service_id: "homeassistant-mdns"
+
+- name: "Configure Avahi reflector"
+  ansible.builtin.lineinfile:
+    dest: "/etc/avahi/avahi-daemon.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: "present"
+  with_items:
+    - regexp: "#?enable-reflector"
+      line: "enable-reflector=yes"
+    - regexp: "#?allow-interfaces"
+      line: "allow-interfaces={{ homeassistant_mdns_host_network_interface }},{{ homeassistant_mdns_docker_network_interface }}"
+
+- name: "Run mdns-repeater container"
+  community.general.docker_container:
+    name: "{{ homeassistant_mdns_service_id }}"
+    image: "angelnu/mdns_repeater"
+    network_mode: "host"
+    state: "started"
+    env:
+      hostNIC: "{{ homeassistant_mdns_host_network_interface }}"
+      dockerNIC: "{{ homeassistant_mdns_docker_network_interface }}"
+    restart_policy: "unless-stopped"

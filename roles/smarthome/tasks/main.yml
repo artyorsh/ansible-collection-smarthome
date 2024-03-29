@@ -1,7 +1,7 @@
 ---
 - name: "Install HomeAssistant"
   ansible.builtin.include_role:
-    name: "home-assistant"
+    name: "homeassistant"
   vars:
     homeassistant_docker_settings: "{{ smarthome_docker_settings }}"
 
