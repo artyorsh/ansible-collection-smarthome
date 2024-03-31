@@ -1,5 +1,4 @@
 ---
-homeassistant_version: "latest"
 homeassistant_port: 8123
 homeassistant_install_dir: "/opt/docker/homeassistant"
 
