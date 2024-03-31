@@ -1,0 +1,35 @@
+---
+- name: "Prepare task variables"
+  ansible.builtin.set_fact:
+    homeassistant_avahi_build_dir: "/opt/docker/homeassistant-avahi"
+
+- name: "Create service directories"
+  ansible.builtin.file:
+    path: "{{ homeassistant_avahi_build_dir }}"
+    state: "directory"
+    mode: "0770"
+
+- name: "Create build directory"
+  ansible.builtin.file:
+    path: "{{ homeassistant_avahi_build_dir }} "
+    state: "directory"
+    mode: "0755"
+
+- name: "Copy Dockerfile"
+  ansible.builtin.template:
+    src: "homeassistant-avahi-dockerfile.j2"
+    dest: "{{ homeassistant_avahi_build_dir }}/Dockerfile"
+    mode: "0644"
+
+- name: "Copy docker-entrypoint"
+  ansible.builtin.copy:
+    src: "files/homeassistant-avahi-docker-entrypoint.sh"
+    dest: "{{ homeassistant_avahi_build_dir }}/docker-entrypoint.sh"
+    mode: "0744"
+
+- name: "Build custom image"
+  community.docker.docker_image:
+    name: "{{ homeassistant_avahi_image_name }}:{{ homeassistant_avahi_image_tag }}"
+    source: "build"
+    build:
+      path: "{{ homeassistant_avahi_build_dir }}"

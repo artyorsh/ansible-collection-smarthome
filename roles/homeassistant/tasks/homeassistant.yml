@@ -24,7 +24,7 @@
 - name: "Run homeassistant container"
   community.general.docker_container:
     name: "{{ homeassistant_service_id }}"
-    image: "homeassistant-avahi:v1"
+    image: "{{ homeassistant_avahi_image_name }}:{{ homeassistant_avahi_image_tag }}"
     networks:
       - name: "{{ homeassistant_docker_settings.network }}"
     state: "started"
