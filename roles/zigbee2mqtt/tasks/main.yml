@@ -9,16 +9,16 @@
   ansible.builtin.file:
     path: "{{ zigbee2mqtt_install_dir }}"
     state: "directory"
-    # owner: "{{ system_user_name }}"
-    # group: "{{ system_user_group }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0770"
 
 - name: "Template configuration.yml"
   ansible.builtin.template:
     src: "zigbee2mqtt-configuration.yaml.j2"
     dest: "{{ zigbee2mqtt_install_dir }}/configuration.yaml"
-    owner: "{{ system_user_name }}"
-    group: "{{ system_user_group }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0700"
 
 - name: "Run zigbee2mqtt container"

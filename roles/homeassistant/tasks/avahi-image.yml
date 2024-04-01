@@ -7,24 +7,32 @@
   ansible.builtin.file:
     path: "{{ homeassistant_avahi_build_dir }}"
     state: "directory"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0770"
 
 - name: "Create build directory"
   ansible.builtin.file:
     path: "{{ homeassistant_avahi_build_dir }} "
     state: "directory"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0755"
 
 - name: "Copy Dockerfile"
   ansible.builtin.template:
     src: "homeassistant-avahi-dockerfile.j2"
     dest: "{{ homeassistant_avahi_build_dir }}/Dockerfile"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: "Copy docker-entrypoint"
   ansible.builtin.copy:
     src: "files/homeassistant-avahi-docker-entrypoint.sh"
     dest: "{{ homeassistant_avahi_build_dir }}/docker-entrypoint.sh"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0744"
 
 - name: "Build custom image"

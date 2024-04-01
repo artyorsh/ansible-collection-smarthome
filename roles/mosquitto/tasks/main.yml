@@ -8,16 +8,16 @@
   ansible.builtin.file:
     path: "{{ mosquitto_install_dir }}"
     state: "directory"
-    # owner: "{{ system_user_name }}"
-    # group: "{{ system_user_group }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0770"
 
 - name: "Template mosquitto.conf"
   ansible.builtin.template:
     src: "mosquitto.conf.j2"
     dest: "{{ mosquitto_install_dir }}/mosquitto.conf"
-    # owner: "{{ system_user_name }}"
-    # group: "{{ system_user_group }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: "Create encrypted passwd volume"
@@ -26,8 +26,8 @@
       ansible.builtin.template:
         src: "mosquitto-passwd.txt.j2"
         dest: "{{ mosquitto_install_dir }}/mosquitto-passwd.txt"
-        # owner: "{{ system_user_name }}"
-        # group: "{{ system_user_group }}"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
         mode: "0700"
 
     - name: "Encrypt passwd"
