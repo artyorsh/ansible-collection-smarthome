@@ -1,5 +1,6 @@
 ---
 # https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2
+# https://gnaneshkunal.github.io/avahi-docker-non-root.html
 - name: "Build HomeAssistant image with Avahi"
   ansible.builtin.include_tasks: "avahi-image.yml"
 
