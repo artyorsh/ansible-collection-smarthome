@@ -1,16 +1,11 @@
 FROM {{ homeassistant_base_image }}:{{ homeassistant_base_image_tag }}
 
-# Install avahi-daemon in container
-
-# https://gnanesh.me/avahi-docker-non-root.html
-
 RUN set -ex \
- && apk --no-cache --no-progress add avahi avahi-tools dbus \
+&& apk --no-cache --no-progress add avahi avahi-tools \
 
 # Disable default Avahi services
 
-&& rm -rf /etc/avahi/services/_ \
- && rm -rf /var/cache/apk/_
+&& rm -rf /etc/avahi/services/_ /var/cache/apk/_
 
 COPY docker-entrypoint.sh /usr/local/sbin/
 ENTRYPOINT ["/usr/local/sbin/docker-entrypoint.sh"]
