@@ -30,6 +30,7 @@
         mosquitto_container_ip: "{{ mosquitto_container_info.container.NetworkSettings.Networks[smarthome_docker_settings.network].IPAddress }}"
 
 - name: "Install Zigbee2MQTT"
+  when: smarthome_zigbee_coordinator | length > 0
   ansible.builtin.include_role:
     name: "zigbee2mqtt"
   vars:
