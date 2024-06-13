@@ -7,5 +7,9 @@
 - name: "Install and configure HomeAssistant"
   ansible.builtin.include_tasks: "homeassistant.yml"
 
+- name: "Check if Avahi is installed"
+  ansible.builtin.include_tasks: "check-avahi-installed.yml"
+
 - name: "Install and configure mDNS repeater"
+  when: homeassistant_avahi_installed
   ansible.builtin.include_tasks: "mdns.yml"
