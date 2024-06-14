@@ -1,9 +1,4 @@
 ---
-- name: "Ensure {{ smarthome_docker_settings.network }} network exists"
-  community.general.docker_network:
-    name: "{{ smarthome_docker_settings.network }}"
-    state: "present"
-
 - name: "Install HomeAssistant"
   ansible.builtin.include_role:
     name: "homeassistant"

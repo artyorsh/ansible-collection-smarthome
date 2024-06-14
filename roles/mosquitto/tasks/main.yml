@@ -37,6 +37,12 @@
         mosquitto_passwd -U {{ mosquitto_passwd_local_file }}
       changed_when: false
 
+- name: "Ensure {{ mosquitto_docker_settings.network }} network exists"
+  when: mosquitto_docker_settings.network != "host"
+  community.general.docker_network:
+    name: "{{ mosquitto_docker_settings.network }}"
+    state: "present"
+
 - name: "Run mosquitto container"
   community.general.docker_container:
     name: "{{ mosquitto_service_id }}"
