@@ -3,7 +3,7 @@
 # https://github.com/arsaboo/homeassistant-config/blob/master/configuration.yaml
 
 homeassistant:
-  time_zone: {{ system_timezone }}
+  time_zone: {{ homeassistant_docker_settings.tz }}
 
 http:
   use_x_forwarded_for: true
