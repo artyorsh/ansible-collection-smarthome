@@ -13,24 +13,13 @@
     mosquitto_password: "{{ smarthome_user.password }}"
     mosquitto_docker_settings: "{{ smarthome_docker_settings }}"
 
-- name: "Set mosquitto ip address in mosquitto_container_ip"
-  block:
-    - name: "Get mosquitto container info"
-      community.docker.docker_container_info:
-        name: "{{ mosquitto_service_id }}"
-      register: mosquitto_container_info
-
-    - name: "Set mosquitto ip in mosquitto_container_ip"
-      ansible.builtin.set_fact:
-        mosquitto_container_ip: "{{ mosquitto_container_info.container.NetworkSettings.Networks[smarthome_docker_settings.network].IPAddress }}"
-
 - name: "Install Zigbee2MQTT"
   when: smarthome_zigbee_coordinator | length > 0
   ansible.builtin.include_role:
     name: "zigbee2mqtt"
   vars:
     zigbee2mqtt_device: "{{ smarthome_zigbee_coordinator }}"
-    zigbee2mqtt_broker_address: "{{ mosquitto_container_ip }}"
+    zigbee2mqtt_broker_address: "{{ mosquitto_service_id }}"
     zigbee2mqtt_broker_user: "{{ smarthome_user.name }}"
     zigbee2mqtt_broker_password: "{{ smarthome_user.password }}"
     zigbee2mqtt_docker_settings: "{{ smarthome_docker_settings }}"
