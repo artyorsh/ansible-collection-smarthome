@@ -5,8 +5,9 @@ mosquitto_port: 1883
 mosquitto_websocket_port: 9001
 mosquitto_install_dir: "/opt/docker/mosquitto"
 # https://mosquitto.org/documentation/authentication-methods
-mosquitto_user: "{{ system_user_name }}"
-mosquitto_password: "{{ system_user_password }}"
+mosquitto_user:
+  name: "{{ ansible_user }}"
+  password: "mosquitto"
 
 mosquitto_docker_settings:
   network: "host"

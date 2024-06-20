@@ -6,8 +6,9 @@ zigbee2mqtt_install_dir: "/opt/docker/zigbee2mqtt"
 
 zigbee2mqtt_device: "" # "/dev/ttyUSB0"
 zigbee2mqtt_broker_address: "172.19.0.1"
-zigbee2mqtt_broker_user: "zigbee2mqtt"
-zigbee2mqtt_broker_password: "zigbee2mqtt"
+zigbee2mqtt_broker_user:
+  name: "{{ ansible_user }}"
+  password: "zigbee2mqtt"
 
 zigbee2mqtt_docker_settings:
   network: "host"

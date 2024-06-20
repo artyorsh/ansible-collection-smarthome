@@ -9,8 +9,7 @@
   ansible.builtin.include_role:
     name: "mosquitto"
   vars:
-    mosquitto_user: "{{ smarthome_user.name }}"
-    mosquitto_password: "{{ smarthome_user.password }}"
+    mosquitto_user: "{{ smarthome_user }}"
     mosquitto_docker_settings: "{{ smarthome_docker_settings }}"
 
 - name: "Install Zigbee2MQTT"
@@ -20,6 +19,5 @@
   vars:
     zigbee2mqtt_device: "{{ smarthome_zigbee_coordinator }}"
     zigbee2mqtt_broker_address: "{{ mosquitto_service_id }}"
-    zigbee2mqtt_broker_user: "{{ smarthome_user.name }}"
-    zigbee2mqtt_broker_password: "{{ smarthome_user.password }}"
+    zigbee2mqtt_broker_user: "{{ smarthome_user }}"
     zigbee2mqtt_docker_settings: "{{ smarthome_docker_settings }}"
