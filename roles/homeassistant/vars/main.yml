@@ -28,15 +28,7 @@ homeassistant_default_config:
   homeassistant:
     time_zone: "{{ homeassistant_docker_settings.tz }}"
 
-  automation: "!include automations.yaml"
-
   network: {}
 
   homekit:
-    - "{{ homeassistant_homekit_config }}"
-
-  logger:
-    default: warning
-    logs:
-      homeassistant.components.homekit: debug
-      pyhap: debug
+    - "{{ homeassistant_homekit_default_config | combine(homeassistant_homekit_config, recursive=true) }}"
