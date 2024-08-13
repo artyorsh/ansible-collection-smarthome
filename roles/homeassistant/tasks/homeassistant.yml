@@ -4,8 +4,8 @@
 - name: "Prepare task variables"
   ansible.builtin.set_fact:
     homeassistant_service_id: "homeassistant"
-    homeassistant_config: "{{ homeassistant_default_config | combine(homeassistant_config, recursive=true) }}"
-    homeassistant_homekit_config: "{{ homeassistant_homekit_default_config | combine(homeassistant_homekit_config, recursive=true) }}"
+    homeassistant_config: "{{ homeassistant_config_default | combine(homeassistant_config, recursive=true) }}"
+    homeassistant_homekit_config: "{{ homeassistant_homekit_config_default | combine(homeassistant_homekit_config, recursive=true) }}"
     homeassistant_docker_settings: "{{ homeassistant_docker_settings_default | combine(homeassistant_docker_settings) }}"
 
 - name: "Create service directories"
