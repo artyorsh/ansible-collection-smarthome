@@ -17,18 +17,16 @@ homeassistant_env_default:
   PUID: "{{ homeassistant_docker_settings.puid }}"
   PGID: "{{ homeassistant_docker_settings.pgid }}"
 
-homeassistant_homekit_default_config:
+homeassistant_homekit_config_default:
   name: "HomeKit Bridge"
   advertise_ip: "{{ ansible_host }}"
   port: "21063"
-  filter:
-    include_entities: []
 
-homeassistant_default_config:
+homeassistant_config_default:
   homeassistant:
     time_zone: "{{ homeassistant_docker_settings.tz }}"
 
   network: {}
 
   homekit:
-    - "{{ homeassistant_homekit_default_config | combine(homeassistant_homekit_config, recursive=true) }}"
+    - "{{ homeassistant_homekit_config_default | combine(homeassistant_homekit_config, recursive=true) }}"
