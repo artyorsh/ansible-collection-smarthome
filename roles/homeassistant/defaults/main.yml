@@ -13,6 +13,5 @@ homeassistant_homekit_config: {}
 
 # https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2
 homeassistant_mdns_host_network_interface: "eth0"
-homeassistant_mdns_docker_network_interface: ""
 
 homeassistant_docker_settings: {}
