@@ -5,3 +5,35 @@ homeassistant_base_image_tag: "2024.5.3"
 
 homeassistant_avahi_image_name: "homeassistant-avahi"
 homeassistant_avahi_image_tag: "{{ homeassistant_base_image_tag }}-avahi"
+
+homeassistant_docker_settings_default:
+  network: "host"
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"
+
+homeassistant_env_default:
+  TZ: "{{ homeassistant_docker_settings.tz }}"
+  PUID: "{{ homeassistant_docker_settings.puid }}"
+  PGID: "{{ homeassistant_docker_settings.pgid }}"
+
+homeassistant_default_config:
+  homeassistant:
+    time_zone: "{{ homeassistant_docker_settings.tz }}"
+
+  automation: "!include automations.yaml"
+
+  network: {}
+
+  homekit:
+    - name: "HomeKit Bridge"
+      advertise_ip: "{{ ansible_host }}"
+      port: "21063"
+      filter:
+        include_entities: []
+
+  logger:
+    default: warning
+    logs:
+      homeassistant.components.homekit: debug
+      pyhap: debug
