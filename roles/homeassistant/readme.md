@@ -1,4 +1,4 @@
-# artyorsh.smarthome.homeassistant
+# smarthome.homeassistant
 
 Builds and installs a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image, discoverable in a bridge network ([See comments](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2) from [@irvinlim](https://github.com/irvinlim)).
 

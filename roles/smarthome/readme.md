@@ -1,4 +1,4 @@
-# smarthome
+# smarthome.smarthome
 
 All-in-one role to install [homeassistant](../homeassistant/readme.md), [mosquitto](../mosquitto/readme.md) and [zigbee2mqtt](../zigbee2mqtt/readme.md).
 

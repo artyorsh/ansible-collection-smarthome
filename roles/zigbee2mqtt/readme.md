@@ -1,4 +1,4 @@
-# artyorsh.smarthome.zigbee2mqtt
+# smarthome.zigbee2mqtt
 
 Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) image.
 

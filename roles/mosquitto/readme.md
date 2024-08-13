@@ -1,4 +1,4 @@
-# artyorsh.smarthome.mosquitto
+# smarthome.mosquitto
 
 Installs the [eclipse-mosquitto](https://hub.docker.com/_/eclipse-mosquitto) image.
 
