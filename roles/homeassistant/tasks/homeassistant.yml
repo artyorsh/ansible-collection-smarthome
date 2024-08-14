@@ -26,12 +26,12 @@
 
 - name: "Ensure {{ homeassistant_network }} network exists"
   when: homeassistant_network != "host"
-  community.general.docker_network:
+  community.docker.docker_network:
     name: "{{ homeassistant_network }}"
     state: "present"
 
 - name: "Run homeassistant container"
-  community.general.docker_container:
+  community.docker.docker_container:
     name: "{{ homeassistant_service_id }}"
     image: "{{ homeassistant_avahi_image_name }}:{{ homeassistant_avahi_image_tag }}"
     networks:

@@ -5,7 +5,7 @@
 
 - name: "Get homeassistant network interface name"
   block:
-    - community.general.docker_network_info:
+    - community.docker.docker_network_info:
         name: "{{ ha_network }}"
       register: ha_network_info
 
@@ -26,7 +26,7 @@
       line: "allow-interfaces={{ homeassistant_mdns_host_network_interface }},{{ homeassistant_mdns_docker_network_interface }}"
 
 - name: "Run mdns-repeater container"
-  community.general.docker_container:
+  community.docker.docker_container:
     name: "{{ homeassistant_mdns_service_id }}"
     image: "angelnu/mdns_repeater"
     network_mode: "host"
