@@ -14,36 +14,36 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
   - Description: See [published tags](https://hub.docker.com/r/koenkk/zigbee2mqtt/tags)
   - Type: str
   - Required: no
+- `zigbee2mqtt_network`
+  - Default: `zigbee2mqtt`
+  - Description:
+  - Type: str
+  - Required: no
 - `zigbee2mqtt_port`
   - Default: `8124`
   - Description: Application WebUI
   - Type: int
   - Required: no
 - `zigbee2mqtt_install_dir`
-  - Default: `/opt/docker/`
+  - Default: `/opt/docker/zigbee2mqtt`
   - Description:
   - Type: str
   - Required: no
+- `zigbee2mqtt_env`
+  - Default: `{}`
+  - Description: Docker container environment. See [zigbee2mqtt.io](https://www.zigbee2mqtt.io/guide/installation/02_docker.html#running-the-container)
+  - Type: str
+  - Required: no
+- `zigbee2mqtt_config`
+  - Default: See [zigbee2mqtt_config_default](./vars/main.yml)
+  - Description: Configuration for [configuration.yaml](https://www.zigbee2mqtt.io/guide/configuration/#configuration). **Must include** [server](https://www.zigbee2mqtt.io/guide/configuration/mqtt.html#server-connection) to operate.
+  - Type: object
+  - Required: yes
 - `zigbee2mqtt_device`
   - Default: ``
   - Description: Path to Zigbee Adapter. See [requirements](#requirements).
   - Type: str
   - Required: yes
-- `zigbee2mqtt_broker_address`
-  - Default: `172.19.0.1`
-  - Description: Address of the [MQTT server](../mosquitto/readme.md#example-playbook)
-  - Type: str
-  - Required: no
-- `zigbee2mqtt_broker_user`
-  - Default: `{ name: "{{ ansible_user }}", password: "mosquitto" }`
-  - Description: Auth user of the MQTT server. See [mosquitto](../mosquitto/readme.md#role-variables)
-  - Type: { name: str; password: str }
-  - Required: no
-- `zigbee2mqtt_docker_settings`
-  - Default: `{ network: "host", puid: "1000", pgid: "1000", tz: "Etc/UTC" }`
-  - Description:
-  - Type: { network: str; puid: int; pgid: int; tz: str }
-  - Required: no
 
 ## Dependencies
 
@@ -55,13 +55,9 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
 - role: "artyorsh.smarthome.zigbee2mqtt"
   vars:
     zigbee2mqtt_device: "/dev/ttyUSB0"
-    zigbee2mqtt_broker_address: "mosquitto"
-    zigbee2mqtt_broker_user:
-      name: "{{ ansible_user }}"
-      password: "changeme"
-    zigbee2mqtt_docker_settings:
-      network: "smarthome"
-      puid: 1000
-      pgid: 1000
-      tz: "Europe/Berlin"
+    zigbee2mqtt_config:
+      mqtt:
+        server: "mqtt://mosquitto"
+        user: "mosquitto"
+        password: "changeme"
 ```
