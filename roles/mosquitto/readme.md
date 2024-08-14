@@ -37,7 +37,7 @@ Installs the [eclipse-mosquitto](https://github.com/eclipse/mosquitto/tree/maste
 
 ## Dependencies
 
-- [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/index.html)
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 

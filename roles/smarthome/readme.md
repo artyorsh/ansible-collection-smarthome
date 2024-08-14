@@ -26,7 +26,7 @@ All-in-one role to install [homeassistant](../homeassistant/readme.md), [mosquit
 
 ## Dependencies
 
-- [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/index.html)
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 

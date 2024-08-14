@@ -44,7 +44,7 @@ Also installs [angelnu/mdns_repeater](https://github.com/angelnu/docker-mdns_rep
 
 ## Dependencies
 
-- [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/index.html)
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 

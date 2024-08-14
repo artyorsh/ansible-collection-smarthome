@@ -47,7 +47,7 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
 
 ## Dependencies
 
-- [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/index.html)
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 
