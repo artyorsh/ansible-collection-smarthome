@@ -14,4 +14,4 @@
   when: homeassistant_avahi_installed
   ansible.builtin.include_tasks: "mdns.yml"
   vars:
-    ha_network: "{{ homeassistant_docker_settings.network }}"
+    ha_network: "{{ homeassistant_network }}"

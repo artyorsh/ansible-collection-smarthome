@@ -3,21 +3,25 @@
   ansible.builtin.include_role:
     name: "homeassistant"
   vars:
-    homeassistant_docker_settings: "{{ smarthome_docker_settings }}"
+    homeassistant_network: "{{ smarthome_network }}"
 
 - name: "Install Mosquitto"
   ansible.builtin.include_role:
     name: "mosquitto"
   vars:
+    mosquitto_network: "{{ smarthome_network }}"
     mosquitto_user: "{{ smarthome_user }}"
-    mosquitto_docker_settings: "{{ smarthome_docker_settings }}"
 
 - name: "Install Zigbee2MQTT"
   when: smarthome_zigbee_coordinator | length > 0
   ansible.builtin.include_role:
     name: "zigbee2mqtt"
   vars:
+    zigbee2mqtt_network: "{{ smarthome_network }}"
+    zigbee2mqtt_config:
+      mqtt:
+        server: "mqtt://{{ mosquitto_service_id }}"
+        user: "{{ smarthome_user.name }}"
+        password: "{{ smarthome_user.password }}"
+
     zigbee2mqtt_device: "{{ smarthome_zigbee_coordinator }}"
-    zigbee2mqtt_broker_address: "{{ mosquitto_service_id }}"
-    zigbee2mqtt_broker_user: "{{ smarthome_user }}"
-    zigbee2mqtt_docker_settings: "{{ smarthome_docker_settings }}"

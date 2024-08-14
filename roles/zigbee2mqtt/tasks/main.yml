@@ -4,6 +4,8 @@
 - name: "Prepare task variables"
   ansible.builtin.set_fact:
     zigbee2mqtt_service_id: "zigbee2mqtt"
+    zigbee2mqtt_env: "{{ zigbee2mqtt_env_default | combine(zigbee2mqtt_env) }}"
+    zigbee2mqtt_config: "{{ zigbee2mqtt_config_default | combine(zigbee2mqtt_config, recursive=true) }}"
 
 - name: "Create service directories"
   ansible.builtin.file:
@@ -21,10 +23,10 @@
     group: "{{ ansible_user }}"
     mode: "0700"
 
-- name: "Ensure {{ zigbee2mqtt_docker_settings.network }} network exists"
-  when: zigbee2mqtt_docker_settings.network != "host"
+- name: "Ensure {{ zigbee2mqtt_network }} network exists"
+  when: zigbee2mqtt_network != "host"
   community.general.docker_network:
-    name: "{{ zigbee2mqtt_docker_settings.network }}"
+    name: "{{ zigbee2mqtt_network }}"
     state: "present"
 
 - name: "Run zigbee2mqtt container"
@@ -32,12 +34,9 @@
     name: "{{ zigbee2mqtt_service_id }}"
     image: "koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
     networks:
-      - name: "{{ zigbee2mqtt_docker_settings.network }}"
+      - name: "{{ zigbee2mqtt_network }}"
     state: "started"
-    env:
-      TZ: "{{ zigbee2mqtt_docker_settings.tz }}"
-      PUID: "{{ zigbee2mqtt_docker_settings.puid }}"
-      PGID: "{{ zigbee2mqtt_docker_settings.pgid }}"
+    env: "{{ zigbee2mqtt_env }}"
     groups:
       - "dialout"
     devices:

@@ -1,5 +1,6 @@
 ---
 homeassistant_port: 8123
+homeassistant_network: "homeassistant"
 homeassistant_install_dir: "/opt/docker/homeassistant"
 
 homeassistant_env: {}
@@ -13,5 +14,3 @@ homeassistant_homekit_config: {}
 
 # https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2
 homeassistant_mdns_host_network_interface: "eth0"
-
-homeassistant_docker_settings: {}
