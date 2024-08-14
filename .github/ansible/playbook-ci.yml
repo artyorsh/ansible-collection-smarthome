@@ -1,0 +1,9 @@
+---
+- name: "Run smarthome role"
+  hosts: "localhost"
+  become: true
+  roles:
+    - role: "geerlingguy.docker"
+    - role: "artyorsh.smarthome.smarthome"
+      vars:
+        smarthome_zigbee_coordinator: "/dev/tty0"
