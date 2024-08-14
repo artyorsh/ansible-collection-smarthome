@@ -1,16 +1,14 @@
 ---
 # https://hub.docker.com/_/eclipse-mosquitto/tags
 mosquitto_version: "latest"
+mosquitto_network: "mosquitto"
 mosquitto_port: 1883
 mosquitto_websocket_port: 9001
 mosquitto_install_dir: "/opt/docker/mosquitto"
+
+mosquitto_env: {}
+
 # https://mosquitto.org/documentation/authentication-methods
 mosquitto_user:
   name: "{{ ansible_user }}"
   password: "mosquitto"
-
-mosquitto_docker_settings:
-  network: "host"
-  puid: "1000"
-  pgid: "1000"
-  tz: "Etc/UTC"

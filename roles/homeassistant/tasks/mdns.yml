@@ -3,6 +3,16 @@
   ansible.builtin.set_fact:
     homeassistant_mdns_service_id: "homeassistant-mdns"
 
+- name: "Get homeassistant network interface name"
+  block:
+    - community.general.docker_network_info:
+        name: "{{ ha_network }}"
+      register: ha_network_info
+
+    - ansible.builtin.set_fact:
+        # could it be something other than br-***?
+        homeassistant_mdns_docker_network_interface: "br-{{ ha_network_info.network.Id[:12] }}"
+
 - name: "Configure Avahi reflector"
   ansible.builtin.lineinfile:
     dest: "/etc/avahi/avahi-daemon.conf"

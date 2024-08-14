@@ -13,3 +13,5 @@
 - name: "Install and configure mDNS repeater"
   when: homeassistant_avahi_installed
   ansible.builtin.include_tasks: "mdns.yml"
+  vars:
+    ha_network: "{{ homeassistant_network }}"

@@ -2,6 +2,7 @@
 - name: "Prepare task variables"
   ansible.builtin.set_fact:
     mosquitto_service_id: "mosquitto"
+    mosquitto_env: "{{ mosquitto_env_default | combine(mosquitto_env) }}"
     mosquitto_passwd_local_file: "/mosquitto/config/passwd"
 
 - name: "Create service directories"
@@ -37,10 +38,10 @@
         mosquitto_passwd -U {{ mosquitto_passwd_local_file }}
       changed_when: false
 
-- name: "Ensure {{ mosquitto_docker_settings.network }} network exists"
-  when: mosquitto_docker_settings.network != "host"
+- name: "Ensure {{ mosquitto_network }} network exists"
+  when: mosquitto_network != "host"
   community.general.docker_network:
-    name: "{{ mosquitto_docker_settings.network }}"
+    name: "{{ mosquitto_network }}"
     state: "present"
 
 - name: "Run mosquitto container"
@@ -48,12 +49,9 @@
     name: "{{ mosquitto_service_id }}"
     image: "eclipse-mosquitto:{{ mosquitto_version }}"
     networks:
-      - name: "{{ mosquitto_docker_settings.network }}"
+      - name: "{{ mosquitto_network }}"
     state: "started"
-    env:
-      TZ: "{{ mosquitto_docker_settings.tz }}"
-      PUID: "{{ mosquitto_docker_settings.puid }}"
-      PGID: "{{ mosquitto_docker_settings.pgid }}"
+    env: "{{ mosquitto_env }}"
     volumes:
       - "{{ mosquitto_install_dir }}/mosquitto.conf:/mosquitto/config/mosquitto.conf"
       - "{{ mosquitto_install_dir }}/mosquitto-passwd.txt:{{ mosquitto_passwd_local_file }}"

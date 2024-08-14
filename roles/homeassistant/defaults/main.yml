@@ -1,24 +1,16 @@
 ---
 homeassistant_port: 8123
+homeassistant_network: "homeassistant"
 homeassistant_install_dir: "/opt/docker/homeassistant"
 
-homeassistant_trusted_proxies: []
-# - { desc: "cloudflare", address: "172.19.0.4" }
+homeassistant_env: {}
 
-homeassistant_homekit_devices: []
+# https://home-assistant.io/docs/configuration/
+# https://github.com/arsaboo/homeassistant-config/blob/master/configuration.yaml
+homeassistant_config: {}
 
-# https://www.home-assistant.io/integrations/homekit/#advertise_ip
-homeassistant_homekit_host_ip: "192.168.0.1"
-
-# https://www.home-assistant.io/integrations/homekit/#firewall
-homeassistant_homekit_port: 21063
+# https://www.home-assistant.io/integrations/homekit/#manual-configuration
+homeassistant_homekit_config: {}
 
 # https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2
 homeassistant_mdns_host_network_interface: "eth0"
-homeassistant_mdns_docker_network_interface: "br-f4834f481234"
-
-homeassistant_docker_settings:
-  network: "host"
-  puid: "1000"
-  pgid: "1000"
-  tz: "Etc/UTC"

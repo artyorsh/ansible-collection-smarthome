@@ -1,0 +1,12 @@
+---
+zigbee2mqtt_env_default: {}
+
+zigbee2mqtt_config_default:
+  homeassistant: true
+  frontend: true
+
+  mqtt:
+    base_topic: "zigbee2mqtt"
+
+  serial:
+    port: /dev/ttyACM0
