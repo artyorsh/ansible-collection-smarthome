@@ -11,45 +11,35 @@ Also installs [angelnu/mdns_repeater](https://github.com/angelnu/docker-mdns_rep
   - Description:
   - Type: int
   - Required: no
-- `homeassistant_install_dir`
-  - Default: `/opt/docker/`
+- `homeassistant_network`
+  - Default: `homeassistant`
   - Description:
   - Type: str
   - Required: no
-- `homeassistant_trusted_proxies`
-  - Default: `[]`
-  - Description: `[{ desc: "cloudflare", address: "172.19.0.4" }]
-  - Type: Array<{ desc: str; address: str }>
-  - Required: no
-- `homeassistant_homekit_host_ip`
-  - Default: `192.168.0.1`
-  - Description: mDNS advertisement address. [See docs](https://www.home-assistant.io/integrations/homekit/#advertise_ip)
+- `homeassistant_install_dir`
+  - Default: `/opt/docker/homeassistant`
+  - Description:
   - Type: str
   - Required: no
-- `homeassistant_homekit_port`
-  - Default: `21063`
-  - Description: Port for the HomeKit extension. [See docs](https://www.home-assistant.io/integrations/homekit/#port).
-  - Type: int
+- `homeassistant_env`
+  - Default: `{}`
+  - Description: Docker container environment. See [linuxserver/homeassistant](https://docs.linuxserver.io/images/docker-homeassistant/#environment-variables-e)
+  - Type: str
+  - Required: no
+- `homeassistant_config`
+  - Default: See [homeassistant_config_default](./vars/main.yml)
+  - Description: Configuration for [configuration.yaml](https://home-assistant.io/docs/configuration/)
+  - Type: object
+  - Required: no
+- `homeassistant_homekit_config`
+  - Default: See [homeassistant_homekit_config_default](./vars/main.yml)
+  - Description: Configuration for [HomeKit integration](https://www.home-assistant.io/integrations/homekit)
+  - Type: object
   - Required: no
 - `homeassistant_mdns_host_network_interface`
   - Default: `eth0`
-  - Description:
+  - Description: Host network interface from which mDNS requests are sent to HomeAssistant container
   - Type: str
-  - Required: yes
-- `homeassistant_mdns_docker_network_interface`
-  - Default: `br-f4834f481234`
-  - Description: Interface name on which the HA container is running. [See discussion](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2).
-  - Type: str
-  - Required: yes
-- `homeassistant_homekit_devices`
-  - Default: `[]`
-  - Description:
-  - Type: Array<str>
-  - Required: no
-- `homeassistant_docker_settings`
-  - Default: `{ network: "host", puid: "1000", pgid: "1000", tz: "Etc/UTC" }`
-  - Description: HA entities to share with HomeKit. [See docs](https://www.home-assistant.io/integrations/homekit/#include_entities).
-  - Type: Array<{ network: str; puid: int; pgid: int; tz: str }>
   - Required: no
 
 ## Dependencies
@@ -60,12 +50,14 @@ Also installs [angelnu/mdns_repeater](https://github.com/angelnu/docker-mdns_rep
 
 ```yaml
 - role: "artyorsh.smarthome.homeassistant"
+```
+
+### Include specific HomeAssistant entries
+
+```yaml
+- role: "artyorsh.smarthome.homeassistant"
   vars:
-    homeassistant_homekit_host_ip: "{{ ansible_host }}"
-    homeassistant_mdns_docker_network_interface: br-*** // Override
-    homeassistant_docker_settings:
-      network: "smarthome"
-      puid: 1000
-      pgid: 1000
-      tz: "Europe/Berlin"
+    homeassistant_homekit_config:
+      filter:
+        include_entity_globs: ["light.*"]
 ```
