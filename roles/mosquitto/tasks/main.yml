@@ -40,12 +40,12 @@
 
 - name: "Ensure {{ mosquitto_network }} network exists"
   when: mosquitto_network != "host"
-  community.general.docker_network:
+  community.docker.docker_network:
     name: "{{ mosquitto_network }}"
     state: "present"
 
 - name: "Run mosquitto container"
-  community.general.docker_container:
+  community.docker.docker_container:
     name: "{{ mosquitto_service_id }}"
     image: "eclipse-mosquitto:{{ mosquitto_version }}"
     networks:
