@@ -33,8 +33,18 @@ All-in-one role to install [homeassistant](../homeassistant/readme.md), [mosquit
 ```yaml
 - role: "artyorsh.smarthome.smarthome"
   vars:
-    smarthome_user:
-      name: "{{ ansible_user }}"
-      password: "changeme"
     smarthome_zigbee_coordinator: "/dev/ttyUSB0"
+    smarthome_user: { name: "smarthome", password: "changeme" }
+```
+
+### Custom settings for individual containers
+
+```yaml
+- role: "artyorsh.smarthome.smarthome"
+  vars:
+    smarthome_zigbee_coordinator: "/dev/ttyUSB0"
+    smarthome_user: { name: "smarthome", password: "changeme" }
+    homeassistant_homekit_config:
+      filter:
+        include_entity_globs: ["light.*"]
 ```
