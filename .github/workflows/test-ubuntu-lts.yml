@@ -25,7 +25,6 @@ jobs:
           /opt/pipx/venvs/ansible-core/bin/python -m pip install requests
 
           ansible-galaxy install geerlingguy.docker
-          ansible-galaxy collection install community.general
           ansible-galaxy collection install community.docker
           ansible-galaxy collection install . -f
 

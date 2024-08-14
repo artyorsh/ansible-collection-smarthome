@@ -25,12 +25,12 @@
 
 - name: "Ensure {{ zigbee2mqtt_network }} network exists"
   when: zigbee2mqtt_network != "host"
-  community.general.docker_network:
+  community.docker.docker_network:
     name: "{{ zigbee2mqtt_network }}"
     state: "present"
 
 - name: "Run zigbee2mqtt container"
-  community.general.docker_container:
+  community.docker.docker_container:
     name: "{{ zigbee2mqtt_service_id }}"
     image: "koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
     networks:
