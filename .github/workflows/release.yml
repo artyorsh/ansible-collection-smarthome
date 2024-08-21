@@ -1,0 +1,22 @@
+---
+name: "Release"
+
+on:
+  pull_request:
+    branches:
+      - "master"
+  # push:
+  #   tags:
+  #     - '*'
+
+jobs:
+
+  release:
+    name: "Release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v4"
+
+      - name: "Publish to Ansible Galaxy"
+        run: |
+          ansible-galaxy collection publish --token ${{ secrets.GALAXY_API_KEY }} .
