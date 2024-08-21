@@ -73,7 +73,7 @@ jobs:
       - name: "Publish the Collection to Galaxy"
         run: >-
           ansible-galaxy collection publish
-          --token ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
+          --token ${{ secrets.GALAXY_API_KEY }}
           --server https://galaxy-dev.ansible.com
           ./artyorsh-smarthome-${{ needs.check_version_update.outputs.version }}.tar.gz
 
