@@ -5,15 +5,66 @@ on:
   pull_request:
     branches:
       - "master"
-  # push:
-  #   tags:
-  #     - '*'
+    paths:
+      - "galaxy.yml"
 
 jobs:
 
-  release:
-    name: "Release"
+  git_tag:
     runs-on: "ubuntu-latest"
+
+    outputs:
+      new_tag: ${{ steps.compare_versions.outputs.value }}
+
+    steps:
+      - uses: "actions/checkout@v4"
+
+      - name: "Install Python 3"
+        uses: "actions/setup-python@v5"
+        with:
+          python-version: "3.x"
+
+      - name: "Install PyYAML"
+        run: pip install pyyaml
+
+      - name: "Read version from galaxy.yml"
+        id: galaxy_yml_version
+        run: |
+          import yaml
+          with open('galaxy.yml', 'r') as file:
+            data = yaml.safe_load(file)
+            print(f"version={data['version']}")
+            print(f"::set-output name=value::{data['version']}")
+        shell: "python"
+
+      - name: "Get latest git version"
+        id: git_tag_version
+        run: |
+          git_tag_version=$(git describe --tags --abbrev=0 2>/dev/null || echo 'v0.0.0')
+          echo "::set-output name=value::$git_tag_version"
+
+      - name: "Compare versions"
+        id: compare_versions
+        run: |
+          if [ "${{ steps.galaxy_yml_version.outputs.value }}" != "${{ steps.git_tag_version.outputs.value }}" ]; then
+            echo "::set-output name=value::true"
+          else
+            echo "::set-output name=value::false"
+          fi
+
+      - name: "Create a new tag"
+        if: steps.compare_versions.outputs.value == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.galaxy_yml_version.outputs.value }}
+          git push origin ${{ steps.galaxy_yml_version.outputs.value }}
+
+  galaxy_publish:
+    runs-on: "ubuntu-latest"
+    needs: git_tag
+    if: needs.git_tag.outputs.value == 'true'
+
     steps:
       - uses: "actions/checkout@v4"
 
@@ -23,8 +74,14 @@ jobs:
           python-version: "3.x"
 
       - name: "Install ansible-core"
-        run: "pip3 install ansible-core"
+        run: pip3 install ansible-core
 
-      - name: "Publish to Ansible Galaxy"
+      - name: "Build the Collection"
+        run: ansible-galaxy collection build
+
+      - name: "Publish the Collection to Galaxy"
         run: |
-          ansible-galaxy collection publish --token ${{ secrets.GALAXY_API_KEY }} .
+          ansible-galaxy collection publish
+          *.tar.gz
+          --token ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
+          --server https://galaxy-dev.ansible.com
