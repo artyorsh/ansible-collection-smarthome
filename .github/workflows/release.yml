@@ -8,6 +8,10 @@ on:
     paths:
       - "galaxy.yml"
 
+permissions:
+  actions: "write"
+  contents: "read"
+
 jobs:
 
   git_tag:
