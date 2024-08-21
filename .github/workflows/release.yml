@@ -4,9 +4,7 @@ name: "Release"
 on:
   pull_request:
     branches:
-      - "master"
-    paths:
-      - "galaxy.yml"
+      - "feat/docs"
 
 permissions:
   actions: "write"
