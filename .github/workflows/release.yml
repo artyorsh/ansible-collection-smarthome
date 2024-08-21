@@ -12,11 +12,12 @@ permissions:
 
 jobs:
 
-  git_tag:
+  check_version_update:
     runs-on: "ubuntu-latest"
 
     outputs:
-      should_deploy: ${{ steps.compare_versions.outputs.value }}
+      version: ${{ steps.galaxy_yml_version.outputs.value }}
+      is_updated: ${{ steps.compare_versions.outputs.value }}
 
     steps:
       - uses: "actions/checkout@v4"
@@ -39,33 +40,21 @@ jobs:
             print(f"::set-output name=value::{data['version']}")
         shell: "python"
 
-      - name: "Get latest git version"
-        id: git_tag_version
-        run: |
-          git_tag_version=$(git describe --tags --abbrev=0 2>/dev/null || echo 'v0.0.0')
-          echo "::set-output name=value::$git_tag_version"
-
-      - name: "Compare versions"
+      - name: "Compare with latest git tag"
         id: compare_versions
         run: |
-          if [ "${{ steps.galaxy_yml_version.outputs.value }}" != "${{ steps.git_tag_version.outputs.value }}" ]; then
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo 'v0.0.0')
+
+          if [[ "${{ steps.galaxy_yml_version.outputs.value }}" != "$latest_tag" ]]; then
             echo "::set-output name=value::true"
           else
             echo "::set-output name=value::false"
           fi
 
-      - name: "Create a new tag"
-        if: steps.compare_versions.outputs.value == 'true'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git tag ${{ steps.galaxy_yml_version.outputs.value }}
-          git push origin ${{ steps.galaxy_yml_version.outputs.value }}
-
-  galaxy_publish:
+  publish:
     runs-on: "ubuntu-latest"
-    needs: git_tag
-    if: needs.git_tag.outputs.should_deploy == 'true'
+    needs: check_version_update
+    if: needs.check_version_update.outputs.is_updated == 'true'
 
     steps:
       - uses: "actions/checkout@v4"
@@ -82,8 +71,15 @@ jobs:
         run: ansible-galaxy collection build
 
       - name: "Publish the Collection to Galaxy"
-        run: |
+        run: >-
           ansible-galaxy collection publish
           --token ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
           --server https://galaxy-dev.ansible.com
-          *.tar.gz
+          ./artyorsh-smarthome-${{ needs.check_version_update.outputs.version }}.tar.gz
+
+      - name: "Publish a new tag"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ needs.check_version_update.outputs.version }}
+          git push origin ${{ needs.check_version_update.outputs.version }}
