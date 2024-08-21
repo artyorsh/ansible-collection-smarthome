@@ -16,7 +16,7 @@ jobs:
     runs-on: "ubuntu-latest"
 
     outputs:
-      new_tag: ${{ steps.compare_versions.outputs.value }}
+      should_deploy: ${{ steps.compare_versions.outputs.value }}
 
     steps:
       - uses: "actions/checkout@v4"
@@ -65,7 +65,7 @@ jobs:
   galaxy_publish:
     runs-on: "ubuntu-latest"
     needs: git_tag
-    if: needs.git_tag.outputs.value == 'true'
+    if: needs.git_tag.outputs.should_deploy == 'true'
 
     steps:
       - uses: "actions/checkout@v4"
