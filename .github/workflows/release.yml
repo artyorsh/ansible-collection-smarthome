@@ -56,7 +56,7 @@ jobs:
       - name: "Build the Collection"
         run: ansible-galaxy collection build
 
-      - name: "Publish the Collection to Galaxy"
+      - name: "Publish to Galaxy"
         run: >-
           ansible-galaxy collection publish
           --api-key ${{ secrets.GALAXY_API_KEY }}
