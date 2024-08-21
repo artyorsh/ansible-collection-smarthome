@@ -2,9 +2,9 @@
 name: "Release"
 
 on:
-  push:
+  pull_request:
     branches:
-      - "master"
+      - "feat/docs"
 
 permissions:
   contents: "write"
