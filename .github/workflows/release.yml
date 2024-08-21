@@ -7,7 +7,6 @@ on:
       - "master"
 
 permissions:
-  actions: "write"
   contents: "write"
 
 jobs:
