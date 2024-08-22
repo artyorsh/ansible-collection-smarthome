@@ -23,7 +23,7 @@
     group: "{{ ansible_user }}"
     mode: "0700"
 
-- name: "Ensure {{ zigbee2mqtt_network }} network exists"
+- name: "Ensure network exists ({{ zigbee2mqtt_network }})"
   when: zigbee2mqtt_network != "host"
   community.docker.docker_network:
     name: "{{ zigbee2mqtt_network }}"

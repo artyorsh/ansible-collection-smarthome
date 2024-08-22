@@ -5,11 +5,13 @@
 
 - name: "Get homeassistant network interface name"
   block:
-    - community.docker.docker_network_info:
+    - name: "Get homeassistant network interface info"
+      community.docker.docker_network_info:
         name: "{{ ha_network }}"
       register: ha_network_info
 
-    - ansible.builtin.set_fact:
+    - name: "Assign homeassistant network interface name"
+      ansible.builtin.set_fact:
         # could it be something other than br-***?
         homeassistant_mdns_docker_network_interface: "br-{{ ha_network_info.network.Id[:12] }}"
 
