@@ -24,7 +24,7 @@
     group: "{{ ansible_user }}"
     mode: "0644"
 
-- name: "Ensure {{ homeassistant_network }} network exists"
+- name: "Ensure network exists ({{ homeassistant_network }})"
   when: homeassistant_network != "host"
   community.docker.docker_network:
     name: "{{ homeassistant_network }}"

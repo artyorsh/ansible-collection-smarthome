@@ -7,4 +7,5 @@ smarthome_user:
   name: "{{ ansible_user }}"
   password: "smarthome"
 
-smarthome_zigbee_coordinator: "" # "/dev/ttyUSB0"
+# /dev/ttyUSB0
+smarthome_zigbee_coordinator: ""

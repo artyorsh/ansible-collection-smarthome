@@ -38,7 +38,7 @@
         mosquitto_passwd -U {{ mosquitto_passwd_local_file }}
       changed_when: false
 
-- name: "Ensure {{ mosquitto_network }} network exists"
+- name: "Ensure network exists ({{ mosquitto_network }})"
   when: mosquitto_network != "host"
   community.docker.docker_network:
     name: "{{ mosquitto_network }}"

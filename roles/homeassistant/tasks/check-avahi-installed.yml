@@ -1,9 +1,10 @@
+---
 - name: "Check if avahi packages are installed"
   block:
     - name: "Collect packages facts"
       ansible.builtin.package_facts:
         manager: "auto"
-    
+
     - name: "Register avahi_packages_installed variable"
       ansible.builtin.set_fact:
         homeassistant_avahi_installed: "{{ 'avahi-daemon' in ansible_facts.packages }}"
