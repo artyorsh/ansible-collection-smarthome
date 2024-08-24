@@ -52,7 +52,7 @@ By default, HomeAssistant and Zigbee2MQTT containers are deployed on ports 8123 
 
 ## Configuration
 
-- The [smarthome](./roles/smarthome/README.md) role is a shortcut to deploy everything in one go
+- The [smarthome role](./roles/smarthome/README.md) is a shortcut to deploy everything in one go
 - Please refer to the role documentation pages for more configuration options:
   - [homeassistant](./roles/homeassistant/README.md)
   - [zigbee2mqtt](./roles/zigbee2mqtt/README.md)
