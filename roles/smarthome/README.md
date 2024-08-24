@@ -1,6 +1,6 @@
 # smarthome.smarthome
 
-All-in-one role to install [homeassistant](../homeassistant/readme.md), [mosquitto](../mosquitto/readme.md) and [zigbee2mqtt](../zigbee2mqtt/readme.md).
+An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosquitto](../mosquitto/readme.md), and [Zigbee2MQTT](../zigbee2mqtt/readme.md).
 
 ## Requirements
 
@@ -10,17 +10,17 @@ All-in-one role to install [homeassistant](../homeassistant/readme.md), [mosquit
 
 - `smarthome_network`
   - Default: `smarthome`
-  - Description: Overrides [homeassistant_network](../homeassistant/readme.md#role-variables) [mosquitto_network](../mosquitto/readme.md#role-variables) and [zigbee2mqtt_network](../zigbee2mqtt/readme.md#role-variables)
+  - Description: Overrides the network for [HomeAssistant](../homeassistant/readme.md#role-variables), [Mosquitto](../mosquitto/readme.md#role-variables), and [Zigbee2MQTT](../zigbee2mqtt/readme.md#role-variables).
   - Type: str
   - Required: no
 - `smarthome_user`
   - Default: `{ name: "{{ ansible_user }}", password: "smarthome" }`
-  - Description: Overrides [mosquitto_user](../mosquitto/readme.md#role-variables) and [zigbee2mqtt_user](../zigbee2mqtt/readme.md#role-variables)
-  - Type: { name: str; password: str }
+  - Description: Overrides the users for [Mosquitto](../mosquitto/readme.md#role-variables) and [Zigbee2MQTT](../zigbee2mqtt/readme.md#role-variables).
+  - Type: dict with keys `name` (str) and `password` (str)
   - Required: no
 - `smarthome_zigbee_coordinator`
   - Default: ``
-  - Description: Overrides [zigbee2mqtt_device](../zigbee2mqtt/readme.md#role-variables)
+  - Description: Specifies the Zigbee coordinator device. Overrides [zigbee2mqtt_device](../zigbee2mqtt/readme.md#role-variables).
   - Type: str
   - Required: yes
 

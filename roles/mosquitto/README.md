@@ -1,38 +1,38 @@
 # smarthome.mosquitto
 
-Installs the [eclipse-mosquitto](https://github.com/eclipse/mosquitto/tree/master/docker#docker-images) image.
+Installs the <a href="https://github.com/eclipse/mosquitto/tree/master/docker#docker-images" target="_blank">eclipse-mosquitto</a> image.
 
 ## Role Variables
 
 - `mosquitto_version`
   - Default: `latest`
-  - Description: See [published tags](https://hub.docker.com/_/eclipse-mosquitto/tags)
+  - Description: The version of the Mosquitto image to install. See [published tags](https://hub.docker.com/_/eclipse-mosquitto/tags).
   - Type: str
   - Required: no
 - `mosquitto_port`
   - Default: `1883`
-  - Description: MQTT listen port
+  - Description: The MQTT listen port.
   - Type: int
   - Required: no
 - `mosquitto_websocket_port`
   - Default: `9001`
-  - Description: MQTT WebSockets listen port
+  - Description: The MQTT WebSockets listen port.
   - Type: int
   - Required: no
 - `mosquitto_install_dir`
   - Default: `/opt/docker/mosquitto`
-  - Description:
+  - Description: The directory where Mosquitto will be installed.
   - Type: str
   - Required: no
 - `mosquitto_env`
   - Default: `{}`
-  - Description: Docker container environment
-  - Type: str
+  - Description: Docker container environment variables.
+  - Type: dict
   - Required: no
 - `mosquitto_user`
   - Default: `{ name: "{{ ansible_user }}", password: "mosquitto" }`
-  - Description: Authentication for Mosquitto instance. [See docs](https://mosquitto.org/documentation/authentication-methods)
-  - Type: { name: str; password: str }
+  - Description: Authentication credentials for the Mosquitto instance. [See docs](https://mosquitto.org/documentation/authentication-methods).
+  - Type: dict with keys `name` (str) and `password` (str)
   - Required: no
 
 ## Dependencies
