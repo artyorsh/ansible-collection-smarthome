@@ -1,10 +1,10 @@
 # smarthome.zigbee2mqtt
 
-Installs the <a href="https://hub.docker.com/r/koenkk/zigbee2mqtt/" target="_blank">koenkk/zigbee2mqtt</a> image.
+Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) image.
 
 ## Requirements
 
-- A <a href="https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites" target="_blank">ZigBee Adapter</a>.
+- A [ZigBee Adapter](https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites).
 - An [MQTT server](../mosquitto/readme.md).
 
 ## Role Variables

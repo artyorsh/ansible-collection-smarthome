@@ -1,10 +1,10 @@
 # smarthome.homeassistant
 
-Builds and install a custom <a href="https://hub.docker.com/r/linuxserver/homeassistant" target="_blank">lscr.io/linuxserver/homeassistant</a> image.
+Builds and install a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image.
 
 ## Why a Custom Image?
 
-When HomeAssistant is deployed in a bridge network, the HomeKit integration is not discoverable by Apple Home. To resolve this, the HomeAssistant image is built using the original LinuxServer image with [avahi-tools enabled](./templates/homeassistant-avahi-dockerfile.j2). For more details, please refer to this <a href="https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2" target="_blank">community thread</a>.
+When HomeAssistant is deployed in a bridge network, the HomeKit integration is not discoverable by Apple Home. To resolve this, the HomeAssistant image is built using the original LinuxServer image with [avahi-tools enabled](./templates/homeassistant-avahi-dockerfile.j2). For more details, please refer to this [community thread](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2).
 
 ## Role Variables
 

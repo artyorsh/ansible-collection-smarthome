@@ -1,6 +1,6 @@
 # smarthome.mosquitto
 
-Installs the <a href="https://github.com/eclipse/mosquitto/tree/master/docker#docker-images" target="_blank">eclipse-mosquitto</a> image.
+Installs the [eclipse-mosquitto](https://github.com/eclipse/mosquitto/tree/master/docker#docker-images) image.
 
 ## Role Variables
 
