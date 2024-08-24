@@ -4,7 +4,7 @@ An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosq
 
 ## Requirements
 
-- A <a href="https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites" alt target="_blank">ZigBee Adapter</a>.
+- A Zigbee Adapter. See [prerequisites](https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites).
 
 ## Role Variables
 
@@ -26,7 +26,7 @@ An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosq
 
 ## Dependencies
 
-- <a href="https://docs.ansible.com/ansible/latest/collections/community/docker/index.html" alt target="_blank">community.docker</a>
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 

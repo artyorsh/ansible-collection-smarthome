@@ -1,17 +1,17 @@
 # smarthome.zigbee2mqtt
 
-Installs the <a href="https://hub.docker.com/r/koenkk/zigbee2mqtt/" alt target="_blank">koenkk/zigbee2mqtt</a> image.
+Installs the <a href="https://hub.docker.com/r/koenkk/zigbee2mqtt/" target="_blank">koenkk/zigbee2mqtt</a> image.
 
 ## Requirements
 
-- A <a href="https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites" alt target="_blank">ZigBee Adapter</a>.
+- A <a href="https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites" target="_blank">ZigBee Adapter</a>.
 - An [MQTT server](../mosquitto/readme.md).
 
 ## Role Variables
 
 - `zigbee2mqtt_version`
   - Default: `latest`
-  - Description: The version of the Zigbee2MQTT image to install. See <a href="https://hub.docker.com/r/koenkk/zigbee2mqtt/tags" alt target="_blank">published tags</a>.
+  - Description: The version of the Zigbee2MQTT image to install. See [published tags](https://hub.docker.com/r/koenkk/zigbee2mqtt/tags).
   - Type: str
   - Required: no
 - `zigbee2mqtt_network`
@@ -31,12 +31,12 @@ Installs the <a href="https://hub.docker.com/r/koenkk/zigbee2mqtt/" alt target="
   - Required: no
 - `zigbee2mqtt_env`
   - Default: `{}`
-  - Description: Docker container environment variables. <a href="https://www.zigbee2mqtt.io/guide/installation/02_docker.html#running-the-container" alt target="_blank">zigbee2mqtt.io</a>.
+  - Description: Docker container environment variables. See [zigbee2mqtt.io](https://www.zigbee2mqtt.io/guide/installation/02_docker.html#running-the-container).
   - Type: dict
   - Required: no
 - `zigbee2mqtt_config`
   - Default: See [zigbee2mqtt_config_default](./vars/main.yml)
-  - Description: Configuration for <a href="https://www.zigbee2mqtt.io/guide/configuration/#configuration" alt target="_blank">configuration.yaml</a>. **Must include** <a href="https://www.zigbee2mqtt.io/guide/configuration/mqtt.html#server-connection" alt target="_blank">server</a> to operate.
+  - Description: Configuration for [configuration.yaml](https://www.zigbee2mqtt.io/guide/configuration/#configuration). **Must include** [server](https://www.zigbee2mqtt.io/guide/configuration/mqtt.html#server-connection) to operate.
   - Type: dict
   - Required: yes
 - `zigbee2mqtt_device`
@@ -47,7 +47,7 @@ Installs the <a href="https://hub.docker.com/r/koenkk/zigbee2mqtt/" alt target="
 
 ## Dependencies
 
-- <a href="https://docs.ansible.com/ansible/latest/collections/community/docker/index.html" alt target="_blank">community.docker</a>
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 

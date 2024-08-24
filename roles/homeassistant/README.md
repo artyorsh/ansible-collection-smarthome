@@ -1,10 +1,10 @@
 # smarthome.homeassistant
 
-Builds and install a custom <a href="https://hub.docker.com/r/linuxserver/homeassistant" alt target="_blank">lscr.io/linuxserver/homeassistant</a> image.
+Builds and install a custom <a href="https://hub.docker.com/r/linuxserver/homeassistant" target="_blank">lscr.io/linuxserver/homeassistant</a> image.
 
 ## Why a Custom Image?
 
-When HomeAssistant is deployed in a bridge network, the HomeKit integration is not discoverable by Apple Home. To resolve this, the HomeAssistant image is built using the original LinuxServer image with [avahi-tools enabled](./templates/homeassistant-avahi-dockerfile.j2). For more details, please refer to this <a href="https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2" alt target="_blank">community thread</a>.
+When HomeAssistant is deployed in a bridge network, the HomeKit integration is not discoverable by Apple Home. To resolve this, the HomeAssistant image is built using the original LinuxServer image with [avahi-tools enabled](./templates/homeassistant-avahi-dockerfile.j2). For more details, please refer to this <a href="https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2" target="_blank">community thread</a>.
 
 ## Role Variables
 
@@ -25,17 +25,17 @@ When HomeAssistant is deployed in a bridge network, the HomeKit integration is n
   - Required: no
 - `homeassistant_env`
   - Default: `{}`
-  - Description: Docker container environment variables. See <a href="https://docs.linuxserver.io/images/docker-homeassistant/#environment-variables-e" alt target="_blank">linuxserver/homeassistant</a>
+  - Description: Docker container environment variables. See [linuxserver/homeassistant](https://docs.linuxserver.io/images/docker-homeassistant/#environment-variables-e).
   - Type: dict
   - Required: no
 - `homeassistant_config`
   - Default: See [homeassistant_config_default](./vars/main.yml)
-  - Description: Configuration for <a href="https://home-assistant.io/docs/configuration/" alt target="_blank">configuration.yaml</a>
+  - Description: Configuration for [configuration.yaml](https://home-assistant.io/docs/configuration/).
   - Type: dict
   - Required: no
 - `homeassistant_homekit_config`
   - Default: See [homeassistant_homekit_config_default](./vars/main.yml)
-  - Description: Configuration for the <a href="https://www.home-assistant.io/integrations/homekit" alt target="_blank">HomeKit integration</a>
+  - Description: Configuration for the [HomeKit integration](https://www.home-assistant.io/integrations/homekit).
   - Type: dict
   - Required: no
 - `homeassistant_mdns_host_network_interface`
@@ -46,7 +46,7 @@ When HomeAssistant is deployed in a bridge network, the HomeKit integration is n
 
 ## Dependencies
 
-- <a href="https://docs.ansible.com/ansible/latest/collections/community/docker/index.html" alt target="_blank">community.docker</a>
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 

@@ -1,12 +1,12 @@
 # smarthome.mosquitto
 
-Installs the <a href="https://github.com/eclipse/mosquitto/tree/master/docker#docker-images" alt target="_blank">eclipse-mosquitto</a> image.
+Installs the <a href="https://github.com/eclipse/mosquitto/tree/master/docker#docker-images" target="_blank">eclipse-mosquitto</a> image.
 
 ## Role Variables
 
 - `mosquitto_version`
   - Default: `latest`
-  - Description: The version of the Mosquitto image to install. See <a href="https://hub.docker.com/_/eclipse-mosquitto/tags" alt target="_blank">published tags</a>.
+  - Description: The version of the Mosquitto image to install. See [published tags](https://hub.docker.com/_/eclipse-mosquitto/tags).
   - Type: str
   - Required: no
 - `mosquitto_port`
@@ -31,13 +31,13 @@ Installs the <a href="https://github.com/eclipse/mosquitto/tree/master/docker#do
   - Required: no
 - `mosquitto_user`
   - Default: `{ name: "{{ ansible_user }}", password: "mosquitto" }`
-  - Description: Authentication credentials for the Mosquitto instance. <a href="https://mosquitto.org/documentation/authentication-methods" alt target="_blank">See docs</a>.
+  - Description: Authentication credentials for the Mosquitto instance. [See docs](https://mosquitto.org/documentation/authentication-methods).
   - Type: dict with keys `name` (str) and `password` (str)
   - Required: no
 
 ## Dependencies
 
-- <a href="https://docs.ansible.com/ansible/latest/collections/community/docker/index.html" alt target="_blank">community.docker</a>
+- [community.docker](https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)
 
 ## Example Playbook
 
