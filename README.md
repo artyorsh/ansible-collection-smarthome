@@ -58,12 +58,6 @@ By default, HomeAssistant and Zigbee2MQTT containers are deployed on ports 8123 
   - [zigbee2mqtt](./roles/zigbee2mqtt/README.md)
   - [mosquitto](./roles/mosquitto/README.md)
 
-## More information
-
-- [Ansible User guide](https://docs.ansible.com/ansible/latest/user_guide/index.html)
-- [HomeAssistant / HomeKit Integration](https://www.home-assistant.io/integrations/homekit)
-- [Using HomeKit component inside docker](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2)
-
 ## License
 
 MIT
