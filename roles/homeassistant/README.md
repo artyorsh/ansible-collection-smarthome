@@ -1,29 +1,32 @@
 # smarthome.homeassistant
 
-Builds and installs a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image, discoverable in a bridge network ([See comments](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2) from [@irvinlim](https://github.com/irvinlim)).
+Builds and installs a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image, discoverable within a bridge network.
 
-Also installs [angelnu/mdns_repeater](https://github.com/angelnu/docker-mdns_repeater), to allow the container to send/receive mdns broadcast messages.
+## Why a Custom Image?
+
+When HomeAssistant is deployed in a bridge network, the HomeKit integration is not discoverable by Apple Home.
+To resolve this, the HomeAssistant image is built using the original linuxserver image with [avahi-tools enabled](./templates/homeassistant-avahi-dockerfile.j2). For more details, please refer to this <a href="https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2" target="_blank">community thread</a> for more details.
 
 ## Role Variables
 
 - `homeassistant_port`
   - Default: `8123`
-  - Description:
+  - Description: The port on which HomeAssistant will be accessible.
   - Type: int
   - Required: no
 - `homeassistant_network`
   - Default: `homeassistant`
-  - Description:
+  - Description: The name of the Docker network.
   - Type: str
   - Required: no
 - `homeassistant_install_dir`
   - Default: `/opt/docker/homeassistant`
-  - Description:
+  - Description: The directory where HomeAssistant will be installed.
   - Type: str
   - Required: no
 - `homeassistant_env`
   - Default: `{}`
-  - Description: Docker container environment. See [linuxserver/homeassistant](https://docs.linuxserver.io/images/docker-homeassistant/#environment-variables-e)
+  - Description: Docker container environment variables. See [linuxserver/homeassistant](https://docs.linuxserver.io/images/docker-homeassistant/#environment-variables-e)
   - Type: str
   - Required: no
 - `homeassistant_config`
@@ -33,12 +36,12 @@ Also installs [angelnu/mdns_repeater](https://github.com/angelnu/docker-mdns_rep
   - Required: no
 - `homeassistant_homekit_config`
   - Default: See [homeassistant_homekit_config_default](./vars/main.yml)
-  - Description: Configuration for [HomeKit integration](https://www.home-assistant.io/integrations/homekit)
+  - Description: Configuration for the [HomeKit integration](https://www.home-assistant.io/integrations/homekit)
   - Type: object
   - Required: no
 - `homeassistant_mdns_host_network_interface`
   - Default: `eth0`
-  - Description: Host network interface from which mDNS requests are sent to HomeAssistant container
+  - Description: The host network interface from which mDNS requests are sent to the HomeAssistant container.
   - Type: str
   - Required: no
 
@@ -49,15 +52,22 @@ Also installs [angelnu/mdns_repeater](https://github.com/angelnu/docker-mdns_rep
 ## Example Playbook
 
 ```yaml
-- role: "artyorsh.smarthome.homeassistant"
+- hosts: localhost
+
+  roles:
+    - artyorsh.smarthome.homeassistant
 ```
 
-### Include specific HomeAssistant entries
+### Only include specific HomeAssistant entries
 
 ```yaml
-- role: "artyorsh.smarthome.homeassistant"
+- hosts: localhost
+
   vars:
     homeassistant_homekit_config:
       filter:
         include_entity_globs: ["light.*"]
+
+  roles:
+    - artyorsh.smarthome.homeassistant
 ```

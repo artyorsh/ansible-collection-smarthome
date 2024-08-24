@@ -4,8 +4,8 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
 
 ## Requirements
 
-- A Zigbee Adapter. See [prerequisites](https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites).
-- An MQTT server. See [mosquitto role](../mosquitto/readme.md).
+- A <a href="https://www.zigbee2mqtt.io/guide/getting-started/#prerequisites" target="_blank">ZigBee Adapter</a>.
+- An [MQTT server](../mosquitto/readme.md).
 
 ## Role Variables
 
@@ -52,7 +52,8 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
 ## Example Playbook
 
 ```yaml
-- role: "artyorsh.smarthome.zigbee2mqtt"
+- hosts: localhost
+
   vars:
     zigbee2mqtt_device: "/dev/ttyUSB0"
     zigbee2mqtt_config:
@@ -60,4 +61,7 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
         server: "mqtt://mosquitto"
         user: "mosquitto"
         password: "changeme"
+
+  roles:
+    - artyorsh.smarthome.zigbee2mqtt
 ```

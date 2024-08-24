@@ -42,9 +42,13 @@ Installs the [eclipse-mosquitto](https://github.com/eclipse/mosquitto/tree/maste
 ## Example Playbook
 
 ```yaml
-- role: "artyorsh.smarthome.mosquitto"
+- hosts: localhost
+
   vars:
     mosquitto_user:
       name: "mosquitto"
       password: "changeme"
+
+  roles:
+    - artyorsh.smarthome.mosquitto
 ```
