@@ -2,9 +2,7 @@
 
 Builds and install a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image.
 
-## Why a Custom Image?
-
-When HomeAssistant is deployed in a bridge network, the HomeKit integration is not discoverable by Apple Home. To resolve this, the HomeAssistant image is built using the original LinuxServer image with [avahi-tools enabled](./templates/homeassistant-avahi-dockerfile.j2). For more details, please refer to this [community thread](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2).
+[Why a Custom Image?](#why-a-custom-image)
 
 ## Role Variables
 
@@ -70,3 +68,17 @@ When HomeAssistant is deployed in a bridge network, the HomeKit integration is n
   roles:
     - artyorsh.smarthome.homeassistant
 ```
+
+## Why a Custom Image?
+
+Running HomeAssistant in a Docker bridge network causes issues with the discoverability of the HomeKit integration by Apple Home. This is because HomeKit relies on mDNS for device discovery, which doesn't work out of the box across Docker's bridge network due to the way Docker handles networking. By [enabling Avahi tools](./templates/homeassistant-avahi-dockerfile.j2), which provide mDNS services, the HomeAssistant container can broadcast its presence on the network, making it discoverable by Apple Home. For more details, please refer to this [community thread](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2).
+
+### Why to run in a bridge network?
+
+Running in a bridge network provides isolation between the Docker containers and the host machine, which enhances the security of IoT infrastructure.
+It allows containers to communicate with each other while keeping them isolated from the host's network.
+
+### Is it still possible to run it in the host network?
+
+Yes, it is.
+In this case, mDNS replication and customization of HomeAssistant image are not required.
