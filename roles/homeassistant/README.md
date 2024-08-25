@@ -1,6 +1,6 @@
 # smarthome.homeassistant
 
-Builds and install a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image.
+Builds and installs a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image.
 
 [Why a Custom Image?](#why-a-custom-image)
 
