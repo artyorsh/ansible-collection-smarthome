@@ -13,7 +13,7 @@
     mosquitto_user: "{{ smarthome_user }}"
 
 - name: "Install Zigbee2MQTT"
-  when: smarthome_zigbee_coordinator | length > 0
+  when: smarthome_zigbee_adapter | length > 0
   ansible.builtin.include_role:
     name: "zigbee2mqtt"
   vars:
@@ -24,4 +24,4 @@
         user: "{{ smarthome_user.name }}"
         password: "{{ smarthome_user.password }}"
 
-    zigbee2mqtt_device: "{{ smarthome_zigbee_coordinator }}"
+    zigbee2mqtt_adapter: "{{ smarthome_zigbee_adapter }}"

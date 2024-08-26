@@ -6,4 +6,4 @@
     - role: "geerlingguy.docker"
     - role: "artyorsh.smarthome.smarthome"
       vars:
-        smarthome_zigbee_coordinator: "/dev/tty0"
+        smarthome_zigbee_adapter: "/dev/tty0"
