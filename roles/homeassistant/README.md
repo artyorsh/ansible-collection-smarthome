@@ -1,8 +1,8 @@
 # smarthome.homeassistant
 
-Builds and installs a custom [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image.
+Installs the [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) image. Modifies the Dockerfile to enable avahi-tools.
 
-[Why a Custom Image?](#why-a-custom-image)
+[Why to modify the Dockerfile?](#why-to-modify-the-dockerfile)
 
 ## Role Variables
 
@@ -69,7 +69,7 @@ Builds and installs a custom [lscr.io/linuxserver/homeassistant](https://hub.doc
     - artyorsh.smarthome.homeassistant
 ```
 
-## Why a Custom Image?
+## Why to modify the Dockerfile?
 
 Running HomeAssistant in a Docker bridge network causes issues with the discoverability of the HomeKit integration by Apple Home. This is because HomeKit relies on mDNS for device discovery, which doesn't work out of the box across Docker's bridge network due to the way Docker handles networking. By [enabling Avahi tools](./templates/homeassistant-avahi-dockerfile.j2), which provide mDNS services, the HomeAssistant container can broadcast its presence on the network, making it discoverable by Apple Home. For more details, please refer to this [community thread](https://community.home-assistant.io/t/using-homekit-component-inside-docker/45409/45?page=2).
 
