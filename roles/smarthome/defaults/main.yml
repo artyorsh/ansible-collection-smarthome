@@ -8,4 +8,4 @@ smarthome_user:
   password: "smarthome"
 
 # /dev/ttyUSB0
-smarthome_zigbee_coordinator: ""
+smarthome_zigbee_adapter: ""

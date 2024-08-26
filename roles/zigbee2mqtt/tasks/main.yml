@@ -40,7 +40,7 @@
     groups:
       - "dialout"
     devices:
-      - "{{ zigbee2mqtt_device }}:/dev/ttyACM0"
+      - "{{ zigbee2mqtt_adapter }}:/dev/ttyACM0"
     ports:
       - "{{ zigbee2mqtt_port }}:8080"
     volumes:
