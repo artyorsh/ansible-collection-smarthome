@@ -10,7 +10,7 @@ readme: README.md
 authors:
   - artyorsh
 
-description: your collection description
+description: Simplify the deployment and configuration of HomeAssistant, Zigbee2MQTT and Mosquitto, making them ready to connect to Apple Home.
 
 license:
   - MIT
