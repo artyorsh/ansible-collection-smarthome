@@ -18,9 +18,9 @@ An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosq
   - Description: Overrides the users for [Mosquitto](../mosquitto/readme.md#role-variables) and [Zigbee2MQTT](../zigbee2mqtt/readme.md#role-variables).
   - Type: dict with keys `name` (str) and `password` (str)
   - Required: no
-- `smarthome_zigbee_coordinator`
+- `smarthome_zigbee_adapter`
   - Default: ``
-  - Description: Specifies the Zigbee coordinator device. Overrides [zigbee2mqtt_device](../zigbee2mqtt/readme.md#role-variables).
+  - Description: Specifies the ZigBee adapter. Overrides [zigbee2mqtt_adapter](../zigbee2mqtt/readme.md#role-variables).
   - Type: str
   - Required: yes
 
@@ -33,7 +33,7 @@ An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosq
 ```yaml
 - role: "artyorsh.smarthome.smarthome"
   vars:
-    smarthome_zigbee_coordinator: "/dev/ttyUSB0"
+    smarthome_zigbee_adapter: "/dev/ttyUSB0"
     smarthome_user: { name: "smarthome", password: "changeme" }
 ```
 
@@ -42,7 +42,7 @@ An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosq
 ```yaml
 - role: "artyorsh.smarthome.smarthome"
   vars:
-    smarthome_zigbee_coordinator: "/dev/ttyUSB0"
+    smarthome_zigbee_adapter: "/dev/ttyUSB0"
     smarthome_user: { name: "smarthome", password: "changeme" }
     homeassistant_homekit_config:
       filter:

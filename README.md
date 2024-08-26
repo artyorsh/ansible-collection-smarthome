@@ -42,7 +42,7 @@ For a real-world usage example, see my [infra playbooks](https://github.com/arty
 - hosts: localhost
 
   vars:
-    smarthome_zigbee_coordinator: /dev/ttyUSB0
+    smarthome_zigbee_adapter: /dev/ttyUSB0
     smarthome_user: { name: "myuser", password: "changeme" }
     # homeassistant_mdns_host_network_interface: wlan0 # running on wlan?
 

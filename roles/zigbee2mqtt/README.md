@@ -39,7 +39,7 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
   - Description: Configuration for [configuration.yaml](https://www.zigbee2mqtt.io/guide/configuration/#configuration). **Must include** [server](https://www.zigbee2mqtt.io/guide/configuration/mqtt.html#server-connection) to operate.
   - Type: dict
   - Required: yes
-- `zigbee2mqtt_device`
+- `zigbee2mqtt_adapter`
   - Default: ``
   - Description: Path to the ZigBee Adapter. See [requirements](#requirements).
   - Type: str
@@ -55,7 +55,7 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
 - hosts: localhost
 
   vars:
-    zigbee2mqtt_device: "/dev/ttyUSB0"
+    zigbee2mqtt_adapter: "/dev/ttyUSB0"
     zigbee2mqtt_config:
       mqtt:
         server: "mqtt://mosquitto"
