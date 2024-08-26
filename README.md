@@ -26,13 +26,13 @@ ansible-galaxy collection install artyorsh.smarthome
 
 ## Usage
 
-<!-- TODO: enable mqtt in HA by default! -->
-<!-- see https://www.home-assistant.io/integrations/alarm_control_panel.mqtt/#state_topic -->
-<!-- see https://www.home-assistant.io/integrations/alarm_control_panel.mqtt/#command_topic -->
-
 1. [Find the ZigBee adapter](https://www.zigbee2mqtt.io/guide/getting-started/#installation)
 2. [Run the playbook](#example-playbook)
-3. [Enable the HomeKit integration in AppleHome](https://www.home-assistant.io/integrations/homekit/#setup) (starting from step 1)
+3. Open HomeAssistant frontend and complete the setup (localhost:8123)
+4. [Enable the MQTT integration](https://www.home-assistant.io/integrations/mqtt/#broker-configuration) (broker: "mosquitto", port: 1883)
+5. Open Zigbee2MQTT frontend and pair the devices (localhost:8124)
+6. Restart HomeAssistant
+7. [Pair with Apple Home](https://www.home-assistant.io/integrations/homekit/#setup) (starting from step 1)
 
 For a real-world usage example, see my [infra playbooks](https://github.com/artyorsh/infra).
 
@@ -43,6 +43,8 @@ For a real-world usage example, see my [infra playbooks](https://github.com/arty
 
   vars:
     smarthome_zigbee_coordinator: /dev/ttyUSB0
+    smarthome_user: { name: "myuser", password: "changeme" }
+    # homeassistant_mdns_host_network_interface: wlan0 # running on wlan?
 
   roles:
     - artyorsh.smarthome.smarthome
