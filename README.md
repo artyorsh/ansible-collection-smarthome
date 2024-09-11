@@ -1,6 +1,7 @@
 # Ansible Collection - Smarthome
 
 [![Ansible Galaxy](https://img.shields.io/badge/collection-artyorsh.smarthome-blue)](https://galaxy.ansible.com/artyorsh/smarthome)
+[![Home Assistant](https://img.shields.io/badge/homeassistant-2024.9.1-blue)](https://github.com/home-assistant/core/releases/tag/2024.9.1)
 [![Test (Ubuntu 22.04)](https://github.com/artyorsh/ansible-collection-smarthome/actions/workflows/test-ubuntu-lts.yml/badge.svg?event=push)](https://github.com/artyorsh/ansible-collection-smarthome/actions/workflows/test-ubuntu-lts.yml)
 
 Effortlessly connect your IoT infrastructure to Apple Home ✨
