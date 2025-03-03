@@ -9,4 +9,5 @@ zigbee2mqtt_config_default:
     base_topic: "zigbee2mqtt"
 
   serial:
+    adapter: zstack
     port: /dev/ttyACM0
