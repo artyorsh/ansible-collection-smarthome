@@ -32,7 +32,7 @@
 - name: "Run zigbee2mqtt container"
   community.docker.docker_container:
     name: "{{ zigbee2mqtt_service_id }}"
-    image: "koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
+    image: "ghcr.io/koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
     networks:
       - name: "{{ zigbee2mqtt_network }}"
     state: "started"
