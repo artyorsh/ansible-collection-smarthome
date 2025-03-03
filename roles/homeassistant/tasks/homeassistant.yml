@@ -43,4 +43,5 @@
       - "{{ homeassistant_homekit_config.port }}:{{ homeassistant_homekit_config.port }}"
     volumes:
       - "{{ homeassistant_install_dir }}:/config"
+      # - "/run/dbus:/run/dbus:ro"
     restart_policy: "unless-stopped"
