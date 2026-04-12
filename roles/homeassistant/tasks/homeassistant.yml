@@ -39,7 +39,13 @@
       - name: "{{ homeassistant_docker_settings.network }}"
     state: "started"
     env: "{{ homeassistant_env }}"
-    ports: "{{ homeassistant_docker_settings.published_ports }}"
+    ports: >-
+      {{
+        homeassistant_docker_settings.published_ports
+        | union([
+            (homeassistant_homekit_config.port | string) ~ ':' ~ (homeassistant_homekit_config.port | string)
+          ])
+      }}
     comparisons:
       published_ports: strict
     volumes:
