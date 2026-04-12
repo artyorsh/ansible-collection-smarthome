@@ -1,13 +1,4 @@
 ---
-# https://hub.docker.com/r/linuxserver/homeassistant/tags
-homeassistant_base_image: "ghcr.io/home-assistant/home-assistant"
-homeassistant_base_image_tag: "2025.2.5"
-
-homeassistant_avahi_image_name: "homeassistant-avahi"
-homeassistant_avahi_image_tag: "{{ homeassistant_base_image_tag }}-avahi"
-
-homeassistant_env_default: {}
-
 homeassistant_homekit_config_default:
   name: "HomeKit Bridge"
   advertise_ip: "{{ ansible_host }}"
@@ -15,6 +6,26 @@ homeassistant_homekit_config_default:
   filter:
     include_entity_globs:
       - "*"
+
+homeassistant_docker_settings_default:
+  network: "host"
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"
+  published_ports:
+    - "8123:8123"
+
+# https://hub.docker.com/r/linuxserver/homeassistant/tags
+homeassistant_base_image: "ghcr.io/home-assistant/home-assistant"
+homeassistant_base_image_tag: "2025.2.5"
+
+homeassistant_avahi_image_name: "homeassistant-avahi"
+homeassistant_avahi_image_tag: "{{ homeassistant_base_image_tag }}-avahi"
+
+homeassistant_env_default:
+  TZ: "{{ homeassistant_docker_settings.tz }}"
+  PUID: "{{ homeassistant_docker_settings.puid }}"
+  PGID: "{{ homeassistant_docker_settings.pgid }}"
 
 homeassistant_config_default:
   network: {}

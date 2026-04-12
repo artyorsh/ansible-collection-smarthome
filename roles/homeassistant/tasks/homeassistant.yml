@@ -4,9 +4,10 @@
 - name: "Prepare task variables"
   ansible.builtin.set_fact:
     homeassistant_service_id: "homeassistant"
-    homeassistant_env: "{{ homeassistant_env_default | combine(homeassistant_env) }}"
     homeassistant_config: "{{ homeassistant_config_default | combine(homeassistant_config, recursive=true) }}"
     homeassistant_homekit_config: "{{ homeassistant_homekit_config_default | combine(homeassistant_homekit_config, recursive=true) }}"
+    homeassistant_docker_settings: "{{ homeassistant_docker_settings_default | combine(homeassistant_docker_settings) }}"
+    homeassistant_env: "{{ homeassistant_env_default | combine(homeassistant_env) }}"
 
 - name: "Create service directories"
   ansible.builtin.file:
@@ -24,10 +25,10 @@
     group: "{{ ansible_user }}"
     mode: "0644"
 
-- name: "Ensure network exists ({{ homeassistant_network }})"
-  when: homeassistant_network != "host"
+- name: "Ensure network exists ({{ homeassistant_docker_settings.network }})"
+  when: homeassistant_docker_settings.network != "host"
   community.docker.docker_network:
-    name: "{{ homeassistant_network }}"
+    name: "{{ homeassistant_docker_settings.network }}"
     state: "present"
 
 - name: "Run homeassistant container"
@@ -35,12 +36,12 @@
     name: "{{ homeassistant_service_id }}"
     image: "{{ homeassistant_avahi_image_name }}:{{ homeassistant_avahi_image_tag }}"
     networks:
-      - name: "{{ homeassistant_network }}"
+      - name: "{{ homeassistant_docker_settings.network }}"
     state: "started"
     env: "{{ homeassistant_env }}"
-    ports:
-      - "{{ homeassistant_port }}:8123"
-      - "{{ homeassistant_homekit_config.port }}:{{ homeassistant_homekit_config.port }}"
+    ports: "{{ homeassistant_docker_settings.published_ports }}"
+    comparisons:
+      published_ports: strict
     volumes:
       - "{{ homeassistant_install_dir }}:/config"
       # - "/run/dbus:/run/dbus:ro"

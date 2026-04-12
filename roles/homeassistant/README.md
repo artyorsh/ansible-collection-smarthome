@@ -6,15 +6,10 @@ Installs the [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxs
 
 ## Role Variables
 
-- `homeassistant_port`
-  - Default: `8123`
-  - Description: The port on which HomeAssistant will be accessible.
-  - Type: int
-  - Required: no
-- `homeassistant_network`
-  - Default: `homeassistant`
-  - Description: The name of the Docker network.
-  - Type: str
+- `homeassistant_docker_settings`
+  - Default: See [homeassistant_docker_settings_default](./vars/main.yml)
+  - Description: Docker container settings.
+  - Type: dict
   - Required: no
 - `homeassistant_install_dir`
   - Default: `/opt/docker/homeassistant`
@@ -22,7 +17,7 @@ Installs the [lscr.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxs
   - Type: str
   - Required: no
 - `homeassistant_env`
-  - Default: `{}`
+  - Default: See [homeassistant_env_default](./vars/main.yml)
   - Description: Docker container environment variables. See [linuxserver/homeassistant](https://docs.linuxserver.io/images/docker-homeassistant/#environment-variables-e).
   - Type: dict
   - Required: no
