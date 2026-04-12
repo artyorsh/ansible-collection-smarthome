@@ -8,11 +8,6 @@ An all-in-one role to install [HomeAssistant](../homeassistant/readme.md), [Mosq
 
 ## Role Variables
 
-- `smarthome_network`
-  - Default: `smarthome`
-  - Description: Overrides the network for [HomeAssistant](../homeassistant/readme.md#role-variables), [Mosquitto](../mosquitto/readme.md#role-variables), and [Zigbee2MQTT](../zigbee2mqtt/readme.md#role-variables).
-  - Type: str
-  - Required: no
 - `smarthome_user`
   - Default: `{ name: "{{ ansible_user }}", password: "smarthome" }`
   - Description: Overrides the users for [Mosquitto](../mosquitto/readme.md#role-variables) and [Zigbee2MQTT](../zigbee2mqtt/readme.md#role-variables).

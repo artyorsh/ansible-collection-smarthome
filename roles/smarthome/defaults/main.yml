@@ -1,5 +1,9 @@
 ---
-smarthome_network: "smarthome"
+smarthome_docker_settings:
+  network: "host"
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"
 
 smarthome_env: {}
 
