@@ -6,6 +6,7 @@
     zigbee2mqtt_service_id: "zigbee2mqtt"
     zigbee2mqtt_env: "{{ zigbee2mqtt_env_default | combine(zigbee2mqtt_env) }}"
     zigbee2mqtt_config: "{{ zigbee2mqtt_config_default | combine(zigbee2mqtt_config, recursive=true) }}"
+    zigbee2mqtt_docker_settings: "{{ zigbee2mqtt_docker_settings_default | combine(zigbee2mqtt_docker_settings) }}"
 
 - name: "Create service directories"
   ansible.builtin.file:
@@ -23,10 +24,10 @@
     group: "{{ ansible_user }}"
     mode: "0700"
 
-- name: "Ensure network exists ({{ zigbee2mqtt_network }})"
-  when: zigbee2mqtt_network != "host"
+- name: "Ensure network exists ({{ zigbee2mqtt_docker_settings.network }})"
+  when: zigbee2mqtt_docker_settings.network != "host"
   community.docker.docker_network:
-    name: "{{ zigbee2mqtt_network }}"
+    name: "{{ zigbee2mqtt_docker_settings.network }}"
     state: "present"
 
 - name: "Run zigbee2mqtt container"
@@ -34,15 +35,16 @@
     name: "{{ zigbee2mqtt_service_id }}"
     image: "ghcr.io/koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
     networks:
-      - name: "{{ zigbee2mqtt_network }}"
+      - name: "{{ zigbee2mqtt_docker_settings.network }}"
     state: "started"
     env: "{{ zigbee2mqtt_env }}"
     groups:
       - "dialout"
     devices:
       - "{{ zigbee2mqtt_adapter }}:/dev/ttyACM0"
-    ports:
-      - "{{ zigbee2mqtt_port }}:8080"
+    ports: "{{ zigbee2mqtt_docker_settings.published_ports }}"
+    comparisons:
+      published_ports: strict
     volumes:
       - "{{ zigbee2mqtt_install_dir }}:/app/data"
     restart_policy: "unless-stopped"

@@ -9,20 +9,15 @@ Installs the [koenkk/zigbee2mqtt](https://hub.docker.com/r/koenkk/zigbee2mqtt/) 
 
 ## Role Variables
 
+- `zigbee2mqtt_docker_settings`
+  - Default: See [zigbee2mqtt_docker_settings_default](./vars/main.yml)
+  - Description: Docker container settings.
+  - Type: dict
+  - Required: no
 - `zigbee2mqtt_version`
   - Default: `latest`
   - Description: The version of the Zigbee2MQTT image to install. See [published tags](https://hub.docker.com/r/koenkk/zigbee2mqtt/tags).
   - Type: str
-  - Required: no
-- `zigbee2mqtt_network`
-  - Default: `zigbee2mqtt`
-  - Description: The name of the Docker network.
-  - Type: str
-  - Required: no
-- `zigbee2mqtt_port`
-  - Default: `8124`
-  - Description: The port for the Zigbee2MQTT WebUI.
-  - Type: int
   - Required: no
 - `zigbee2mqtt_install_dir`
   - Default: `/opt/docker/zigbee2mqtt`

@@ -1,5 +1,16 @@
 ---
-zigbee2mqtt_env_default: {}
+zigbee2mqtt_docker_settings_default:
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"
+  network: "host"
+  published_ports:
+    - "8080:8080"
+
+zigbee2mqtt_env_default:
+  TZ: "{{ zigbee2mqtt_docker_settings.tz }}"
+  PUID: "{{ zigbee2mqtt_docker_settings.puid }}"
+  PGID: "{{ zigbee2mqtt_docker_settings.pgid }}"
 
 zigbee2mqtt_config_default:
   homeassistant: true
