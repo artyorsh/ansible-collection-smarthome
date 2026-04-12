@@ -4,20 +4,15 @@ Installs the [eclipse-mosquitto](https://github.com/eclipse/mosquitto/tree/maste
 
 ## Role Variables
 
+- `mosquitto_docker_settings`
+  - Default: See [mosquitto_docker_settings_default](./vars/main.yml)
+  - Description: Docker container settings.
+  - Type: dict
+  - Required: no
 - `mosquitto_version`
   - Default: `latest`
   - Description: The version of the Mosquitto image to install. See [published tags](https://hub.docker.com/_/eclipse-mosquitto/tags).
   - Type: str
-  - Required: no
-- `mosquitto_port`
-  - Default: `1883`
-  - Description: The MQTT listen port.
-  - Type: int
-  - Required: no
-- `mosquitto_websocket_port`
-  - Default: `9001`
-  - Description: The MQTT WebSockets listen port.
-  - Type: int
   - Required: no
 - `mosquitto_install_dir`
   - Default: `/opt/docker/mosquitto`

@@ -4,6 +4,7 @@
     mosquitto_service_id: "mosquitto"
     mosquitto_env: "{{ mosquitto_env_default | combine(mosquitto_env) }}"
     mosquitto_passwd_local_file: "/mosquitto/config/passwd"
+    mosquitto_docker_settings: "{{ mosquitto_docker_settings_default | combine(mosquitto_docker_settings) }}"
 
 - name: "Create service directories"
   ansible.builtin.file:
@@ -38,10 +39,10 @@
         mosquitto_passwd -U {{ mosquitto_passwd_local_file }}
       changed_when: false
 
-- name: "Ensure network exists ({{ mosquitto_network }})"
-  when: mosquitto_network != "host"
+- name: "Ensure network exists ({{ mosquitto_docker_settings.network }})"
+  when: mosquitto_docker_settings.network != "host"
   community.docker.docker_network:
-    name: "{{ mosquitto_network }}"
+    name: "{{ mosquitto_docker_settings.network }}"
     state: "present"
 
 - name: "Run mosquitto container"
@@ -49,13 +50,13 @@
     name: "{{ mosquitto_service_id }}"
     image: "eclipse-mosquitto:{{ mosquitto_version }}"
     networks:
-      - name: "{{ mosquitto_network }}"
+      - name: "{{ mosquitto_docker_settings.network }}"
     state: "started"
     env: "{{ mosquitto_env }}"
     volumes:
       - "{{ mosquitto_install_dir }}/mosquitto.conf:/mosquitto/config/mosquitto.conf"
       - "{{ mosquitto_install_dir }}/mosquitto-passwd.txt:{{ mosquitto_passwd_local_file }}"
-    ports:
-      - "{{ mosquitto_port }}:1883"
-      - "{{ mosquitto_websocket_port }}:9001"
+    ports: "{{ mosquitto_docker_settings.published_ports }}"
+    comparisons:
+      published_ports: strict
     restart_policy: "unless-stopped"

@@ -1,2 +1,14 @@
 ---
-mosquitto_env_default: {}
+mosquitto_docker_settings_default:
+  puid: "1000"
+  pgid: "1000"
+  tz: "Etc/UTC"
+  network: "host"
+  published_ports:
+    - "1883:1883"
+    - "9001:9001"
+
+mosquitto_env_default:
+  TZ: "{{ mosquitto_docker_settings.tz }}"
+  PUID: "{{ mosquitto_docker_settings.puid }}"
+  PGID: "{{ mosquitto_docker_settings.pgid }}"
